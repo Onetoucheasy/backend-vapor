@@ -1,0 +1,31 @@
+//
+//  ModelsMigration_v0.swift
+//  
+//
+//  Created by Eric Olsson on 7/30/23.
+//
+// L1, 3.23.30
+import Vapor
+import Fluent
+
+struct ModelsMigration_v0: AsyncMigration {
+    
+    func prepare(on database: FluentKit.Database) async throws {
+        
+        try await database // L1, 3.24.40
+            .schema(User.schema)
+            .id()
+            .field("created_at", .string)
+            .field("name", .string)
+            .field("email", .string)
+            .field("password", .string)
+            .create() // L1, 3.27.25 creates DB...
+        
+    }
+    
+    func revert(on database: Database) async throws {
+        
+        
+    }
+    
+}

@@ -10,7 +10,7 @@ import Fluent
 // L1, 3.35.00~
 struct AuthController: RouteCollection {
     func boot(routes: Vapor.RoutesBuilder) throws {
-        <#code#>
+        print("Test")
     }
     
 }
