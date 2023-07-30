@@ -45,6 +45,10 @@ struct VersioningController: RouteCollection {
         let appStoreLiveVersion = "1.2.0" // L1, 2.44.50 hardcoded for testing
         let needsUpdate = currentVersion < appStoreLiveVersion
 
+        // simple test
+//        let user = User(name: "Eric", email: "ejolsson@gmail.com", password: "123456")
+//        try await user.create(on: req.db) // pass test
+        
         return Version(current: currentVersion, live: appStoreLiveVersion, needsUpdate: needsUpdate) // L1, 2.46.30
         // RapidAPI Test 2: Version https://docs.google.com/document/d/1P-a5OIAxO44VewPy_5ACdchxnvbDO0MSJi6rR6Y1tp8/edit#bookmark=kix.38612i361drk
     }
