@@ -21,10 +21,6 @@ struct AuthController: RouteCollection {
         
     }
     
-//    func signUp(req: Request) async throws -> String {
-//        return "Test signup" // Test successful
-//    }
-    
     // MARK: - Routes
     func signUp(req: Request) async throws -> User.Public { // L1, 3.42.00
         
