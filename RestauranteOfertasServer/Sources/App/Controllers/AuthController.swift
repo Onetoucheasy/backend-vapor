@@ -22,7 +22,10 @@ struct AuthController: RouteCollection {
     }
     
     // MARK: - Routes
-    func signUp(req: Request) async throws -> User.Public { // L1, 3.42.00
+    func signUp(req: Request) async throws -> User.Public { // L1, 3.42.00, L2, 1.23.00
+        
+        // Validate // L2, 0.34.15, build
+        try User.Create.validate(content: req)
         
         // Decode
         let userCreate = try req.content.decode(User.Create.self)
