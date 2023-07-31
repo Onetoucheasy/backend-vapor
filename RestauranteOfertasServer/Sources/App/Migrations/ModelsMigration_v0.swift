@@ -16,9 +16,9 @@ struct ModelsMigration_v0: AsyncMigration {
             .schema(User.schema)
             .id()
             .field("created_at", .string)
-            .field("name", .string)
-            .field("email", .string)
-            .field("password", .string)
+            .field("name", .string, .required)
+            .field("email", .string, .required)
+            .field("password", .string, .required)
             .create() // L1, 3.27.25 creates DB...
         
     }
