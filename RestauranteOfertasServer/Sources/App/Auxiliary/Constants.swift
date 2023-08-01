@@ -1,10 +1,10 @@
 //
-//  File.swift
+//  Constants.swift
 //  
 //
 //  Created by Eric Olsson on 7/28/23.
 //
-
+// L2, 1.18.35
 import Foundation
 
 struct Constants {
