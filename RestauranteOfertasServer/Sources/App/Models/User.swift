@@ -69,3 +69,17 @@ extension User { // L1, 3.40.00~
     }
     
 }
+
+// MARK: - Authenticable
+extension User: ModelAuthenticatable { // L1, 3.41.00~, L2, 1.34.00
+    
+    static var usernameKey = \User.$email
+    static var passwordHashKey = \User.$password
+    
+    func verify(password: String) throws -> Bool { // L2, 1.37.00
+        
+        try Bcrypt.verify(password, created: self.password)
+        
+    }
+
+}
