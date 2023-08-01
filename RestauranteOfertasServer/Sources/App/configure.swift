@@ -12,6 +12,9 @@ public func configure(_ app: Application) async throws { // L1, 1.47.00
     guard let _ = Environment.process.APP_BUNDLE_ID else { fatalError("APP_BUNDLE_ID not found") } // APP_BUNDLE_ID
 //    guard let jwtKey = Environment.process.JWT_KEY else { fatalError("JWT_KEY not found") }
     
+    // Configure passwords hash type // L2, 0.41.15
+    app.passwords.use(.bcrypt)
+    
     // L1, 1.53.15 Error handling: do.. try.. catch
     do {
         // Connect to DB // L1 1.51.30, https://docs.vapor.codes/fluent/overview/#postgresql
