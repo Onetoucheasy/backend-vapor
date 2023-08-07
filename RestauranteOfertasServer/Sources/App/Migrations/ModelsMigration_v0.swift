@@ -22,11 +22,23 @@ struct ModelsMigration_v0: AsyncMigration {
             .field("isCompany", .string,.required) //TODO: Change to Bool
             .create() // L1, 3.27.25 creates DB...
         
+        try await database
+            .schema(Restaurant.schema)
+            .id()
+            .field("id_company", .uuid, .required, .references(User.schema, .id)) //FK
+            .field("created_at", .string)
+            .field("name", .string, .required)
+            .field("cif", .string) //Required?
+            .field("type", .string, .required)
+            .field("id_address", .string,.required) //FK
+            .field("id_coordinates", .string,.required) //FK
+            .field("id_schedule", .string,.required) //FK
+            .create()
     }
     
     func revert(on database: Database) async throws {
-        
-        
+        try await database.schema(User.schema).delete()
+        try await database.schema(Restaurant.schema).delete()
     }
     
 }
