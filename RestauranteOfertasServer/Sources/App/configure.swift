@@ -32,6 +32,7 @@ public func configure(_ app: Application) async throws { // L1, 1.47.00
     
     // Migrations // L1, 3.28.00
     app.migrations.add(ModelsMigration_v0())
+    app.migrations.add(PopulateInitialData())
     try await app.autoMigrate()
     
     // register routes
