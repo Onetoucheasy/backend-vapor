@@ -19,6 +19,7 @@ struct ModelsMigration_v0: AsyncMigration {
             .field("name", .string, .required)
             .field("email", .string, .required)
             .field("password", .string, .required)
+            .field("isCompany", .string,.required) //TODO: Change to Bool
             .create() // L1, 3.27.25 creates DB...
         
     }

@@ -44,10 +44,12 @@ struct AuthController: RouteCollection {
         
         // Save user // L1, 3.45.10
         let user = User(name: userCreate.name, email: userCreate.email, password: passwordHashed) // L2, 0.42.00
+        
+        if userCreate.isCompany == "true" {user.isCompany = userCreate.isCompany}
         try await user.create(on: req.db)
         
         // Tokens // L2, 1.24.00
-        let tokens = JWTToken.generateTokens(userID: user.id!)
+        let tokens = JWTToken.generateTokens(userID: user.id!, isCompany: user.isCompany)
         let accessSigned = try req.jwt.sign(tokens.accessToken) // L2, 1.25.10
         let refreshSigned = try req.jwt.sign(tokens.refreshToken)
         
@@ -61,9 +63,11 @@ struct AuthController: RouteCollection {
         let user = try req.auth.require(User.self)
         
         // Tokens // L2, 1.37.45
-        let tokens = JWTToken.generateTokens(userID: user.id!)
+        let tokens = JWTToken.generateTokens(userID: user.id!, isCompany: user.isCompany)
         let accessSigned = try req.jwt.sign(tokens.accessToken)
         let refreshSigned = try req.jwt.sign(tokens.refreshToken)
+        
+        
         
         return JWTToken.Public(accessToken: accessSigned, refreshToken: refreshSigned)
         
@@ -85,7 +89,7 @@ struct AuthController: RouteCollection {
         }
         
         // Tokens
-        let tokens = JWTToken.generateTokens(userID: user.id!)
+        let tokens = JWTToken.generateTokens(userID: user.id!, isCompany: user.isCompany)
         let accessSigned = try req.jwt.sign(tokens.accessToken)
         let refreshSigned = try req.jwt.sign(tokens.refreshToken)
         

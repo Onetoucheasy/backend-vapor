@@ -29,14 +29,18 @@ final class User: Model {
     @Field(key: "password")
     var password: String
     
+    @Field(key: "isCompany")
+    var isCompany: String //TODO: Change to Bool
+    
     // Inits
     init() { } // L1, 3.21.40
     
-    init(id: UUID? = nil, name: String, email: String, password: String) {
+    init(id: UUID? = nil, name: String, email: String, password: String, isCompany: String = "false") { //TODO: Change isCompany to Bool
         self.id = id
         self.name = name
         self.email = email
         self.password = password
+        self.isCompany = isCompany
     }
     
 }
@@ -49,12 +53,14 @@ extension User { // L1, 3.40.00~
         let name: String
         let email: String
         let password: String
+        let isCompany: String //TODO: Change to Bool
         
         static func validations(_ validations: inout Vapor.Validations) { // L2, 0.31.10
             
             validations.add("name", as: String.self, is: !.empty, required: true)
             validations.add("email", as: String.self, is: .email, required: true)
             validations.add("password", as: String.self, is: .count(6...), required: true)
+            validations.add("isCompany", as: String.self, required: true) //TODO: Change to Bool. When Bool, "isCompany is not a(n) Bool error.
             
         }
         
