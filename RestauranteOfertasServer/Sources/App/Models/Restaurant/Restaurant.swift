@@ -8,7 +8,7 @@
 import Vapor
 import Fluent
 
-final class Restaurant: Model {
+final class Restaurant: Content, Model {
      
     //Scheme
     static var schema = "restaurants"

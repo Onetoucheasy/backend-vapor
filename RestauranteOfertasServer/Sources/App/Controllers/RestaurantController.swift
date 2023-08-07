@@ -12,6 +12,8 @@ struct RestaurantController : RouteCollection{
     func boot(routes: Vapor.RoutesBuilder) throws {
         routes.group(JWTToken.authenticator(),JWTToken.guardMiddleware()) { builder in
             builder.post("addRestaurant", use: addRestaurant)
+            builder.get("restaurants", use: allRestaurants)
+            builder.get("restaurants", ":id", use: getRestaurantById)
         }
     }
     
@@ -31,8 +33,30 @@ struct RestaurantController : RouteCollection{
         try await restaurant.create(on: req.db)
         
         
-        return "Restaurant Added"
+        return "Restaurant Added" //TODO: Does it need a return?
         
     }
+    //Retrieve all restaurants
+    func allRestaurants(req: Request) async throws -> [Restaurant]{
+        try await Restaurant.query(on: req.db).all()
+    }
+    //Retrieve a restaurant by idRestaurant
+    func getRestaurantById(req: Request) async throws -> Restaurant {
+        let id = req.parameters.get("id", as: UUID.self)
+        
+        guard let restaurant = try await Restaurant.find(id, on: req.db) else {
+            throw Abort(.notFound)
+        }
+        return restaurant
+    }
+    
+    //Retrieve all the restaurants from a company
+    
+    
+    //Retrieve restaurant by type
+    
+    
+    //Update Restaurant
+    
     
 }
