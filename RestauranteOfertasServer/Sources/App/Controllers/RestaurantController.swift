@@ -14,6 +14,10 @@ struct RestaurantController : RouteCollection{
             builder.post("addRestaurant", use: addRestaurant)
             builder.get("restaurants", use: allRestaurants)
             builder.get("restaurants", ":id", use: getRestaurantById)
+            builder.get("restaurants-type", ":type" , use: getRestaurantByType)
+            builder.put("restaurants", ":id", use: updateRestaurant)
+            builder.get("restaurants-company", ":company", use: getRestaurantsByCompany)
+
         }
     }
     
@@ -40,6 +44,7 @@ struct RestaurantController : RouteCollection{
     func allRestaurants(req: Request) async throws -> [Restaurant]{
         try await Restaurant.query(on: req.db).all()
     }
+    
     //Retrieve a restaurant by idRestaurant
     func getRestaurantById(req: Request) async throws -> Restaurant {
         let id = req.parameters.get("id", as: UUID.self)
@@ -52,11 +57,55 @@ struct RestaurantController : RouteCollection{
     
     //Retrieve all the restaurants from a company
     
+    func getRestaurantsByCompany(req: Request) async throws -> [Restaurant] {
+        let company = req.parameters.get("company", as: UUID.self) ?? UUID()
+        
+        let restaurants = try await Restaurant.query(on: req.db)
+            .filter(\.$idCompany == company)
+            .all()
+        
+        if restaurants.isEmpty {
+            throw Abort(.notFound)
+        }
+        
+        return restaurants
+    }
     
     //Retrieve restaurant by type
+    func getRestaurantByType(req: Request) async throws -> [Restaurant] {
+        let type = req.parameters.get("type", as: String.self) ?? ""
+        
+        let restaurants = try await Restaurant.query(on: req.db)
+            .filter(\.$type == type)
+            .all()
+        
+        if restaurants.isEmpty {
+            throw Abort(.notFound)
+        }
+        
+        return restaurants
+    }
+
     
     
-    //Update Restaurant
-    
-    
+    // Update a restaurant
+    func updateRestaurant(req: Request) async throws -> String {
+        let id = req.parameters.get("id", as: UUID.self)
+        
+        let updatedData = try req.content.decode(Restaurant.Create.self)
+        
+        // Find the restaurant by ID
+        guard let existingRestaurant = try await Restaurant.find(id, on: req.db) else {
+            throw Abort(.notFound)
+        }
+        
+        existingRestaurant.name = updatedData.name
+        existingRestaurant.type = updatedData.type
+        
+        // Save the changes to the database
+        try await existingRestaurant.update(on: req.db)
+        
+        return "Restaurant Updated"
+    }
+
 }
