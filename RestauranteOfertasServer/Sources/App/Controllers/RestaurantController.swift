@@ -41,6 +41,7 @@ struct RestaurantController : RouteCollection{
         
     }
     //Retrieve all restaurants
+    
     func allRestaurants(req: Request) async throws -> [Restaurant]{
         try await Restaurant.query(on: req.db).all()
     }

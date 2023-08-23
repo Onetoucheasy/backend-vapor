@@ -34,11 +34,25 @@ struct ModelsMigration_v0: AsyncMigration {
             .field("id_coordinates", .string,.required) //FK
             .field("id_schedule", .string,.required) //FK
             .create()
+        
+        try await database
+            .schema(Offert.schema)
+            .id()
+            .field("id_restaurant", .uuid, .required, .references(Restaurant.schema, .id)) //FK
+            .field("created_at", .string)
+            .field("offertName", .string, .required)
+            .field("description", .string)
+            .field("image", .string)
+            .field("startTime", .string)
+            .field("endTime", .string)
+            .field("postTime", .string)
+            .create()
     }
     
     func revert(on database: Database) async throws {
         try await database.schema(User.schema).delete()
         try await database.schema(Restaurant.schema).delete()
+        try await database.schema(Offert.schema).delete()
     }
     
 }

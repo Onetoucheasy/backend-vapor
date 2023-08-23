@@ -79,7 +79,7 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "DATABASE_URL"
-            value = "postgres://postgres:root@127.0.0.1/CloudDragon"
+            value = "postgres://ericolsson:onetoucheasy2023@127.0.0.1/ericolsson"
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
