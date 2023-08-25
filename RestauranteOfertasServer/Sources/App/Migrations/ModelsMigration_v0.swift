@@ -11,6 +11,21 @@ import Fluent
 struct ModelsMigration_v0: AsyncMigration {
     
     func prepare(on database: FluentKit.Database) async throws {
+        //https://docs.vapor.codes/fluent/schema/#enum
+        // try await database.enum("user_type").delete()
+        //Important note: I hadn't been able to remove enum data typres using queries like the one above. In order to run this migration, enums shoud be removed too from the database. Steps:
+        //1: Locate the enum type name with SELECT * FROM pg_enum; or the OID with SELECT * FROM pg_type;
+        //2: Run DROP TYPE IF EXISTS "custom_enum_name";
+        //3: In this case, is "user_type"
+        
+        try await database
+            .enum("user_type")
+            .case("admin")
+            .case("company")
+            .case("customer")
+            .create()
+        
+        let userType = try await database.enum("user_type").read()
         
         try await database // L1, 3.24.40
             .schema(User.schema)
@@ -19,7 +34,7 @@ struct ModelsMigration_v0: AsyncMigration {
             .field("name", .string, .required)
             .field("email", .string, .required)
             .field("password", .string, .required)
-            .field("isCompany", .string,.required) //TODO: Change to Bool
+            .field("type", userType,.required)
             .create() // L1, 3.27.25 creates DB...
         
         try await database
@@ -37,8 +52,8 @@ struct ModelsMigration_v0: AsyncMigration {
     }
     
     func revert(on database: Database) async throws {
+        try await database.enum("user_type").delete()
         try await database.schema(User.schema).delete()
         try await database.schema(Restaurant.schema).delete()
     }
-    
 }

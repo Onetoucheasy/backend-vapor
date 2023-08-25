@@ -20,7 +20,7 @@ struct JWTToken: Content, JWTPayload, Authenticatable { // L2, 2.08.42 - Authent
     var iss: IssuerClaim
     var sub: SubjectClaim
     var type: JWTTokenType
-    var isCompany: String //TODO: Change to Bool
+    var userType: String 
     
     // JWT verification // This is used to interrogate a user's JWT
     func verify(using signer: JWTKit.JWTSigner) throws {
@@ -42,13 +42,13 @@ struct JWTToken: Content, JWTPayload, Authenticatable { // L2, 2.08.42 - Authent
         guard type == .accesToken || type == .refreshToken else {
             throw JWTError.claimVerificationFailure(name: "type", reason: "Type is invalid")
         }
-        //Validate JWT audience //TODO: Change to Bool
-        guard isCompany == "true" || isCompany == "false" else {
-            throw JWTError.claimVerificationFailure(name: "aud", reason: "Aud is invalid")
+       
+        guard userType == UserType.admin.rawValue ||
+        userType == UserType.company.rawValue ||
+        userType == UserType.customer.rawValue else {
+            throw JWTError.claimVerificationFailure(name: "userType", reason: "Unknown user type")
         }
-        
     }
-    
 }
 
 // MARK: - DTOs
@@ -58,15 +58,13 @@ extension JWTToken { // L2, 1.15.10
         
         let accessToken: String
         let refreshToken: String
-        
     }
-    
 }
 
 // MARK: - Auxiliar
 extension JWTToken { // L2, 1.16.20
     
-    static func generateTokens(userID: UUID, isCompany: String) -> (accessToken: JWTToken, refreshToken: JWTToken) {
+    static func generateTokens(userID: UUID, userType: String) -> (accessToken: JWTToken, refreshToken: JWTToken) {
      
         let iss = Environment.process.APP_BUNDLE_ID!
         let sub = userID.uuidString
@@ -75,14 +73,13 @@ extension JWTToken { // L2, 1.16.20
         
         // Acces token
         var expDate = currentDate.addingTimeInterval(Constants.accessTokenLifetime)
-        let access = JWTToken(exp: .init(value: expDate), iss: .init(value: iss), sub: .init(value: sub), type: .accesToken, isCompany: isCompany)
+        let access = JWTToken(exp: .init(value: expDate), iss: .init(value: iss), sub: .init(value: sub), type: .accesToken, userType: userType)
         
         // Refresh token
         expDate = currentDate.addingTimeInterval(Constants.refreshTokenLifeTime)
-        let refresh = JWTToken(exp: .init(value: expDate), iss: .init(value: iss), sub: .init(value: sub), type: .refreshToken, isCompany: isCompany)
+        let refresh = JWTToken(exp: .init(value: expDate), iss: .init(value: iss), sub: .init(value: sub), type: .refreshToken, userType: userType)
         
         return (access, refresh)
-        
     }
     
 }

@@ -13,18 +13,18 @@ struct PopulateInitialData: AsyncMigration{
         //Hashed Password
         
         //Company Users
-        let user0 = User(name: "Maria", email: "maria@prueba.com", password: try Bcrypt.hash("password0"), isCompany: "true")
+        let user0 = User(name: "Maria", email: "maria@prueba.com", password: try Bcrypt.hash("password0"), userType: UserType.company)
+
+        let user1 = User(name: "Jose", email: "jose@prueba.com", password: try Bcrypt.hash("password1"), userType: UserType.company)
+
+        let user2 = User(name: "Rafael", email: "rafael@prueba.com", password: try Bcrypt.hash("password2"), userType: UserType.company)
         
-        let user1 = User(name: "Jose", email: "jose@prueba.com", password: try Bcrypt.hash("password1"), isCompany: "true")
+        //Customer Users
+        let user3 = User(name: "Mario", email: "mario@prueba.com", password: try Bcrypt.hash("password3"), userType: UserType.customer)
         
-        let user2 = User(name: "Rafael", email: "rafael@prueba.com", password: try Bcrypt.hash("password2"), isCompany: "true")
+        let user4 = User(name: "Elena", email: "elena@prueba.com", password: try Bcrypt.hash("password4"), userType: UserType.customer)
         
-        //Custpmer Users
-        let user3 = User(name: "Mario", email: "mario@prueba.com", password: try Bcrypt.hash("password3"), isCompany: "false")
-        
-        let user4 = User(name: "Elena", email: "elena@prueba.com", password: try Bcrypt.hash("password4"), isCompany: "false")
-        
-        let user5 = User(name: "Rafael", email: "rafael@prueba.com", password: try Bcrypt.hash("password5"), isCompany: "false")
+        let user5 = User(name: "Rafael", email: "rafael@prueba.com", password: try Bcrypt.hash("password5"), userType: UserType.customer)
         
         //Add to the database
         try await [user0, user1, user2, user3, user4, user5].create(on: database)

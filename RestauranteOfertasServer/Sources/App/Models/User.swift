@@ -7,6 +7,13 @@
 
 import Vapor
 import Fluent
+
+enum UserType: String, Codable{
+    case admin = "admin"
+    case company = "company"
+    case customer = "customer"
+}
+
 // L1, 3.14.00~ https://docs.vapor.codes/fluent/model/#models
 final class User: Model {
     
@@ -29,18 +36,18 @@ final class User: Model {
     @Field(key: "password")
     var password: String
     
-    @Field(key: "isCompany")
-    var isCompany: String //TODO: Change to Bool
+    @Enum(key: "type")
+    var userType: UserType
     
     // Inits
     init() { } // L1, 3.21.40
     
-    init(id: UUID? = nil, name: String, email: String, password: String, isCompany: String = "false") { //TODO: Change isCompany to Bool
+    init(id: UUID? = nil, name: String, email: String, password: String, userType: UserType) { //TODO: Change isCompany to Bool
         self.id = id
         self.name = name
         self.email = email
         self.password = password
-        self.isCompany = isCompany
+        self.userType = userType
     }
     
 }
@@ -53,17 +60,15 @@ extension User { // L1, 3.40.00~
         let name: String
         let email: String
         let password: String
-        let isCompany: String //TODO: Change to Bool
+        let type: String //TODO: Change to Bool
         
         static func validations(_ validations: inout Vapor.Validations) { // L2, 0.31.10
             
             validations.add("name", as: String.self, is: !.empty, required: true)
             validations.add("email", as: String.self, is: .email, required: true)
             validations.add("password", as: String.self, is: .count(6...), required: true)
-            validations.add("isCompany", as: String.self, required: true) //TODO: Change to Bool. When Bool, "isCompany is not a(n) Bool error.
-            
+            validations.add("type", as: String.self, required: true) //TODO: String or Enum? Whith string seems to work fine.
         }
-        
     }
     
     struct Public: Content {
@@ -87,5 +92,5 @@ extension User: ModelAuthenticatable { // L1, 3.41.00~, L2, 1.34.00
         try Bcrypt.verify(password, created: self.password)
         
     }
-
+    
 }
