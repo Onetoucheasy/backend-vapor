@@ -7,7 +7,7 @@
 // L1, 3.23.30
 import Vapor
 import Fluent
-
+import CoreLocation
 struct ModelsMigration_v0: AsyncMigration {
     
     func prepare(on database: FluentKit.Database) async throws {
@@ -37,6 +37,15 @@ struct ModelsMigration_v0: AsyncMigration {
             .field("type", userType,.required)
             .create() // L1, 3.27.25 creates DB...
         
+        
+        try await database
+               .schema(Coordinates.schema)
+               .id()
+               .field("latitude", .double, .required )
+               .field("longitude", .double, .required )
+               .create()
+          
+        
         try await database
             .schema(Restaurant.schema)
             .id()
@@ -46,14 +55,17 @@ struct ModelsMigration_v0: AsyncMigration {
             .field("cif", .string) //Required?
             .field("type", .string, .required)
             .field("id_address", .string,.required) //FK
-            .field("id_coordinates", .string,.required) //FK
+            .field("id_coordinates", .uuid, .references(Coordinates.schema, "id")) //FK
             .field("id_schedule", .string,.required) //FK
             .create()
+        
+   
     }
     
     func revert(on database: Database) async throws {
         try await database.enum("user_type").delete()
         try await database.schema(User.schema).delete()
+        try await database.schema(Coordinates.schema).delete()
         try await database.schema(Restaurant.schema).delete()
     }
 }

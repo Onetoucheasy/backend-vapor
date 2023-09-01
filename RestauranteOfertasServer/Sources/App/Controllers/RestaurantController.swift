@@ -24,22 +24,80 @@ struct RestaurantController : RouteCollection{
      //MARK: - Routes -
     //Companies can add restaurants.
     //  func addRestaurant(req: Request) async throws -> Restaurant.Public {
-    func addRestaurant(req: Request) async throws -> String {
-        //TODO: Where should be checked if the user is a company?
+//    func addRestaurant(req: Request)  async throws -> String {
+//        //TODO: Where should be checked if the user is a company?
+//        print("before restaurant create")
+//
+//        try Restaurant.Create.validate(content: req)
+//        print("after restaurant create")
+//        //Decode
+//        let restaurantCreate = try req.content.decode(Restaurant.Create.self)
+//
+//        let coordinates = try Coordinates(latitude: restaurantCreate.latitude, longitude: restaurantCreate.longitude)
+//
+//        await withThrowingTaskGroup(of: Void.self) { taskGroup in
+//            taskGroup.addTask {
+//                try await coordinates.create(on: req.db)
+//            }
+//        }
+//
+//        //Save restaurant
+//        let restaurant = try Restaurant(idCompany: restaurantCreate.idCompany, name: restaurantCreate.name, type: restaurantCreate.type, idAddress: restaurantCreate.idAddress, coordinates: coordinates ,idSchedule: restaurantCreate.idSchedule)
+//
+//        await withThrowingTaskGroup(of: Void.self) { taskGroup in
+//            taskGroup.addTask {
+//                try await restaurant.create(on: req.db)
+//            }
+//        }
+//
+//        coordinates.restaurant.append(restaurant)
+//
+//        try await coordinates.$restaurant.attach
+////        restaurant.coordinates.append(coordinates)
+////        //restaurant.idCoordinates.append(coordinates)
+////        coordinates.restaurant = restaurant
+//
+////        try await restaurant.create(on: req.db)
+////        try await coordinates.create(on: req.db)
+//
+//        return "Restaurant Added" //TODO: Does it need a return?
+//
+//    }
+    
+    func addRestaurant(req: Request)  async throws -> HTTPStatus { //TODO: Check return type
+        //Data validation
         try Restaurant.Create.validate(content: req)
-        
         //Decode
         let restaurantCreate = try req.content.decode(Restaurant.Create.self)
+
+        let coordinates = try Coordinates(latitude: restaurantCreate.latitude, longitude: restaurantCreate.longitude)
         
-        //Save restaurant
-        let restaurant = Restaurant(idCompany: restaurantCreate.idCompany, name: restaurantCreate.name, type: restaurantCreate.type, idAddress: restaurantCreate.idAddress, idCoordinates: restaurantCreate.idCoordinates, idSchedule: restaurantCreate.idSchedule)
+        let restaurant = try Restaurant(idCompany: restaurantCreate.idCompany, name: restaurantCreate.name, type: restaurantCreate.type, idAddress: restaurantCreate.idAddress, coordinates: coordinates ,idSchedule: restaurantCreate.idSchedule)
         
+        try await coordinates.create(on: req.db)
         try await restaurant.create(on: req.db)
+        try await coordinates.$restaurant.create(restaurant, on: req.db)
+       
+        return .ok
+
+        //try await restaurant.$coordinates.create(on: req.db)
+//        try await req.db.transaction { database in
+//            try await coordinates.save(on: database).flatMap<Coordinates> { values  in
+//
+//                let savedCoordinates = Coordinates.find(coordinates.id, on: req.db)
+//                if let idCoordinates = values.{
+//                    restaurant.id = coordinates.id
+//                }
+//            }
+//            try await restaurant.save(on: database)
+//            coordinates.restaurant.append(restaurant)
+//        }
+        return .ok
         
-        
-        return "Restaurant Added" //TODO: Does it need a return?
-        
+  
     }
+    
+    
     //Retrieve all restaurants
     func allRestaurants(req: Request) async throws -> [Restaurant]{
         try await Restaurant.query(on: req.db).all()

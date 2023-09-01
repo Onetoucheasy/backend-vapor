@@ -7,6 +7,7 @@
 
 import Vapor
 import Fluent
+import CoreLocation
 
 final class Restaurant: Content, Model {
      
@@ -35,8 +36,12 @@ final class Restaurant: Content, Model {
     @Field(key: "id_address") //FK
     var idAddress: UUID
     
-    @Field(key: "id_coordinates") //FK
-    var idCoordinates: UUID
+    //TODO: I think that the parent table is restaurant
+    @OptionalParent(key: "id_coordinates") //FK // One Restaurant have one set of coordinates, but a set of coordiantes can be used by diferent restaurants.
+    var coordinates: Coordinates?
+//    @Children(for: \.$restaurant) //FK // One Restaurant have one set of coordinates, but a set of coordiantes can be used by diferent restaurants.
+//    var coordinates: [Coordinates]
+    
     
     @Field(key: "id_schedule") //FK
     var idSchedule: UUID
@@ -44,7 +49,8 @@ final class Restaurant: Content, Model {
     // Inits
     init() { }
     
-    internal init(id: UUID? = nil, idCompany: UUID, createdAt: Date? = nil, name: String, cif: String? = nil, type: String, idAddress: UUID, idCoordinates: UUID, idSchedule: UUID) {
+  //  internal init(id: UUID? = nil, idCompany: UUID, createdAt: Date? = nil, name: String, cif: String? = nil, type: String, idAddress: UUID, idCoordinates: Coordinates, idSchedule: UUID) {
+    internal init(id: UUID? = nil, idCompany: UUID, createdAt: Date? = nil, name: String, cif: String? = nil, type: String, idAddress: UUID, coordinates: Coordinates ,idSchedule: UUID) throws {
         self.id = id
         self.idCompany = idCompany
         self.createdAt = createdAt
@@ -52,7 +58,8 @@ final class Restaurant: Content, Model {
         self.cif = cif
         self.type = type
         self.idAddress = idAddress
-        self.idCoordinates = idCoordinates
+        //self.$coordinates.id = try coordinates.requireID()
+        self.$coordinates.id = coordinates.id
         self.idSchedule = idSchedule
     }
     
@@ -60,14 +67,18 @@ final class Restaurant: Content, Model {
 
 // MARK: - DTOs -
 extension Restaurant {
-    
+
     struct Create: Content, Validatable {
         let idCompany: UUID
         let name: String
         let cif: String?
         let type: String
         let idAddress: UUID
-        let idCoordinates: UUID
+      //  let idCoordinates: UUID
+        let latitude: Double
+        let longitude: Double
+//        let latitude: String
+//        let longitude: String
         let idSchedule: UUID
         
         static func validations(_ validations: inout Vapor.Validations) {
@@ -77,7 +88,11 @@ extension Restaurant {
             validations.add("cif", as: String.self, required: true)
             validations.add("type", as: String.self, is: !.empty, required: true)
             validations.add("idAddress", as: UUID.self, required: true)
-            validations.add("idCoordinates", as: UUID.self, required: true)
+            //validations.add("idCoordinates", as: UUID.self, required: true)
+            validations.add("latitude", as: Double.self, required: true)
+            validations.add("longitude", as: Double.self, required: true)
+           // validations.add("latitude", as: String.self, required: true)
+           // validations.add("longitude", as: String.self, required: true)
             validations.add("idSchedule", as: UUID.self, required: true)
         }
         

@@ -42,43 +42,43 @@ struct PopulateInitialData: AsyncMigration{
          7. Run requests > 200 OK
          */
         
-        let restaurant0 = Restaurant(
-            idCompany: user0.id!,
-            name: "Shushi Bar",
-            type: "Japonés",
-            idAddress: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb384")!,
-            idCoordinates: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb385")!,
-            idSchedule: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb382")!
-        )
-
-        let restaurant1 = Restaurant(
-            idCompany: user1.id!,
-            name: "Tapas Bar",
-            type: "Español",
-            idAddress: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb384")!,
-            idCoordinates: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb385")!,
-            idSchedule: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb382")!
-        )
-        
-        let restaurant2 = Restaurant(
-            idCompany: user2.id!,
-            name: "Pizzaria",
-            type: "Italiano",
-            idAddress: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb384")!,
-            idCoordinates: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb385")!,
-            idSchedule: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb382")!
-        )
-        
-        let restaurant3 = Restaurant(
-            idCompany: user2.id!,
-            name: "Pasta Mas",
-            type: "Italiano",
-            idAddress: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb384")!,
-            idCoordinates: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb385")!,
-            idSchedule: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb382")!
-        )
-        
-        try await [restaurant0, restaurant1].create(on: database)
+//        let restaurant0 = Restaurant(
+//            idCompany: user0.id!,
+//            name: "Shushi Bar",
+//            type: "Japonés",
+//            idAddress: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb384")!,
+//            idCoordinates: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb385")!,
+//            idSchedule: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb382")!
+//        )
+//
+//        let restaurant1 = Restaurant(
+//            idCompany: user1.id!,
+//            name: "Tapas Bar",
+//            type: "Español",
+//            idAddress: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb384")!,
+//            idCoordinates: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb385")!,
+//            idSchedule: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb382")!
+//        )
+//        
+//        let restaurant2 = Restaurant(
+//            idCompany: user2.id!,
+//            name: "Pizzaria",
+//            type: "Italiano",
+//            idAddress: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb384")!,
+//            idCoordinates: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb385")!,
+//            idSchedule: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb382")!
+//        )
+//        
+//        let restaurant3 = Restaurant(
+//            idCompany: user2.id!,
+//            name: "Pasta Mas",
+//            type: "Italiano",
+//            idAddress: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb384")!,
+//            idCoordinates: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb385")!,
+//            idSchedule: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb382")!
+//        )
+//        
+//        try await [restaurant0, restaurant1].create(on: database)
         
          /*
           Thread 1: Fatal error: Error raised at top level: PSQLError(
