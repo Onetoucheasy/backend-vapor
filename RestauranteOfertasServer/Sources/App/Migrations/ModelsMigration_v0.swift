@@ -59,7 +59,24 @@ struct ModelsMigration_v0: AsyncMigration {
             .field("id_schedule", .string,.required) //FK
             .create()
         
-   
+        try await database
+            .schema(Offer.schema)
+            .id()
+            .field("id_restaurant", .uuid, .required, .references(Restaurant.schema, .id)) //FK
+            .field("id_state", .uuid)
+            .field("title", .string, .required)
+            .field("created_date", .string)
+            .field("start_hour", .string, .required)
+            .field("end_hour", .string,.required)
+            .field("image", .string, .required) //FK
+            .field("description", .string)
+            .field("quantity_offered", .int)
+            .field("price", .int, .required)
+            .field("id_currency", .uuid) //FK TODO
+            .field("minimum_customers", .int)
+            .field("maximum_customers", .int)
+            .field("restaurant", .uuid, .required, .references(Restaurant.schema, "id"))
+            .create()
     }
     
     func revert(on database: Database) async throws {
@@ -67,5 +84,6 @@ struct ModelsMigration_v0: AsyncMigration {
         try await database.schema(User.schema).delete()
         try await database.schema(Coordinates.schema).delete()
         try await database.schema(Restaurant.schema).delete()
+        try await database.schema(Offer.schema).delete()
     }
 }

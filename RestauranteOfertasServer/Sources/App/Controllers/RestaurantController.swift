@@ -17,7 +17,8 @@ struct RestaurantController : RouteCollection{
             builder.get("restaurants-type", ":type" , use: getRestaurantByType)
             builder.put("restaurants", ":id", use: updateRestaurant)
             builder.get("restaurants-company", ":company", use: getRestaurantsByCompany)
-
+            builder.get("restaurantWithOffer", ":id", use: restaurantWithOffersByID)//restaurantWithOffersByID
+            //builder.get("restaurantWithOffer", use: restaurantsWithOffers)//restaurantWithOffersByID
         }
     }
     
@@ -74,9 +75,11 @@ struct RestaurantController : RouteCollection{
         
         try await coordinates.create(on: req.db)
 
-        let restaurant = try Restaurant(idCompany: restaurantCreate.idCompany, name: restaurantCreate.name, type: restaurantCreate.type, idAddress: restaurantCreate.idAddress, coordinates: coordinates ,idSchedule: restaurantCreate.idSchedule)
+
+        let restaurant = try Restaurant(idCompany: restaurantCreate.idCompany, name: restaurantCreate.name, type: restaurantCreate.type, idAddress: restaurantCreate.idAddress, coordinates: coordinates, offers: [], idSchedule: restaurantCreate.idSchedule)
         
       //  try await coordinates.create(on: req.db)
+        
 
         try await restaurant.create(on: req.db)
      //   try await coordinates.$restaurant.create(restaurant, on: req.db)
@@ -168,5 +171,38 @@ struct RestaurantController : RouteCollection{
         
         return "Restaurant Updated"
     }
-
+    
+    //Retrieve a restaurant by idRestaurant
+    func restaurantByID(req: Request) async throws -> Restaurant {
+        let id = req.parameters.get("id", as: UUID.self)
+        
+        guard let restaurant = try await Restaurant.find(id, on: req.db) else {
+            throw Abort(.notFound)
+        }
+        return restaurant
+    }
+    
+       
+   func restaurantWithOffersByID(req: Request) async throws -> Restaurant.Public {
+       
+       let id = req.parameters.get("id", as: UUID.self)
+       
+       guard let restaurant = try await Restaurant.find(id, on: req.db) else {
+           throw Abort(.notFound)
+       }
+       
+       try await restaurant.$offers.load(on: req.db)
+       
+       return Restaurant.Public(id: restaurant.id!, idCompany: restaurant.idCompany, name: restaurant.name, type: restaurant.type, offers: restaurant.offers)
+   }
+    
+//    func restaurantsWithOffers(req: Request) async throws -> [Restaurant.Public] {
+//
+//        let rest: [Restaurant.Public] = try await Restaurant.query(on: req.db).all().map { restaurant in
+//            restaurant.$offers.load(on: req.db)
+//            return Restaurant.Public(id: restaurant.id!, idCompany: restaurant.idCompany, name: restaurant.name, type: restaurant.type, offers: restaurant.offers)
+//        }
+//
+//        return rest
+//    }
 }

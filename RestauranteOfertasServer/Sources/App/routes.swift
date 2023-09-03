@@ -10,6 +10,7 @@ func routes(_ app: Application) throws {
             try builder.register(collection: VersioningController()) // L1, 2.32.00~ first run
             try builder.register(collection: AuthController()) // L1, 3.38.30
             try builder.register(collection: RestaurantController())
+            try builder.register(collection: OfferController())
         }
         
     }

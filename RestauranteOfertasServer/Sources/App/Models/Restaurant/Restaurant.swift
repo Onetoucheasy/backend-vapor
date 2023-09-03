@@ -15,6 +15,7 @@ final class Restaurant: Content, Model {
     static var schema = "restaurants"
     
     //Properties
+    
     @ID(key: .id) //PK
     var id: UUID?
     
@@ -41,6 +42,8 @@ final class Restaurant: Content, Model {
     var coordinates: Coordinates?
 //    @Children(for: \.$restaurant) //FK // One Restaurant have one set of coordinates, but a set of coordiantes can be used by diferent restaurants.
 //    var coordinates: [Coordinates]
+    @Children(for: \Offer.$restaurant)
+    var offers: [Offer]
     
     
     @Field(key: "id_schedule") //FK
@@ -50,7 +53,7 @@ final class Restaurant: Content, Model {
     init() { }
     
   //  internal init(id: UUID? = nil, idCompany: UUID, createdAt: Date? = nil, name: String, cif: String? = nil, type: String, idAddress: UUID, idCoordinates: Coordinates, idSchedule: UUID) {
-    internal init(id: UUID? = nil, idCompany: UUID, createdAt: Date? = nil, name: String, cif: String? = nil, type: String, idAddress: UUID, coordinates: Coordinates ,idSchedule: UUID) throws {
+    internal init(id: UUID? = nil, idCompany: UUID, createdAt: Date? = nil, name: String, cif: String? = nil, type: String, idAddress: UUID, coordinates: Coordinates, offers: [Offer], idSchedule: UUID) throws {
         self.id = id
         self.idCompany = idCompany
         self.createdAt = createdAt
@@ -60,6 +63,8 @@ final class Restaurant: Content, Model {
         self.idAddress = idAddress
         //self.$coordinates.id = try coordinates.requireID()
         self.$coordinates.id = coordinates.id
+        self.offers = offers
+        
         self.idSchedule = idSchedule
     }
     
@@ -106,9 +111,10 @@ extension Restaurant {
         //let cif: String?
         let type: String
        //TODO: The next id should not be shown. Do the Query and return the real values as nested Objects. 
-        let idAddress: UUID
-        let idCoordinates: UUID
-        let adSchedule: UUID
+        //let idAddress: UUID
+        //let idCoordinates: UUID
+        //let adSchedule: UUID
+        let offers: [Offer]
         
     }
     
