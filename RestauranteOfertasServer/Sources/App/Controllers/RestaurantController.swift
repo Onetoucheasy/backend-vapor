@@ -17,8 +17,8 @@ struct RestaurantController : RouteCollection{
             builder.get("restaurants-type", ":type" , use: getRestaurantByType)
             builder.put("restaurants", ":id", use: updateRestaurant)
             builder.get("restaurants-company", ":company", use: getRestaurantsByCompany)
-            builder.get("restaurantWithOffer", ":id", use: restaurantWithOffersByID)//restaurantWithOffersByID
-            builder.get("restaurantWithOffer", use: restaurantsWithOffers)//restaurantWithOffersByID
+            builder.get("restaurantWithOffer", ":id", use: getRestaurantWithOffersByID)//restaurantWithOffersByID
+            builder.get("restaurantsWithOffer", use: getRestaurantsWithOffers)
         }
     }
     
@@ -181,7 +181,7 @@ struct RestaurantController : RouteCollection{
     }
     
     // Retrieve all Restaurants with the List of Offers
-    func restaurantsWithOffers(req: Request) async throws -> RestResponse {
+    func getRestaurantsWithOffers(req: Request) async throws -> RestResponse {
 
         let restaurants = try await Restaurant.query(on: req.db).all()
         
@@ -197,7 +197,7 @@ struct RestaurantController : RouteCollection{
     }
        
     // Retrieve one Restaurant with the List of Offers through RestaurantID
-   func restaurantWithOffersByID(req: Request) async throws -> Restaurant.Public {
+   func getRestaurantWithOffersByID(req: Request) async throws -> Restaurant.Public {
        
        let id = req.parameters.get("id", as: UUID.self)
        

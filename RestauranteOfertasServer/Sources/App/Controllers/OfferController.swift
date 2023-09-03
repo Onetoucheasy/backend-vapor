@@ -15,7 +15,7 @@ struct OfferController : RouteCollection{
             
             builder.get("offers", use: allOffers)
             builder.get("offers", ":id", use: getOfferById)
-            builder.get("offers-with-restaurants", use: getAllOffersWithRestaurantsData)
+            //builder.get("offers-with-restaurants", use: getAllOffersWithRestaurantsData)
         }
     }
     
