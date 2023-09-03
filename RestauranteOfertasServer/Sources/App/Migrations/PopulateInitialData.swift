@@ -40,45 +40,66 @@ struct PopulateInitialData: AsyncMigration{
          5. TablePlus > "users" table > "Maria" record > copy "id" UUID value
          6. PASTE into: RapidAPI > "Create Restaurant" request > Body > "idCompany"
          7. Run requests > 200 OK
-         */
+      */
+        let coordinates1: Coordinates = try Coordinates(latitude: 40.3, longitude: -3.4)
+        let coordinates2: Coordinates = try Coordinates(latitude: 40.2, longitude: -3.3)
+        let coordinates3: Coordinates = try Coordinates(latitude: 40.0, longitude: -3.1)
+        let coordinates4: Coordinates = try Coordinates(latitude: 40.2, longitude: -3.6)
+        let coordinates5: Coordinates = try Coordinates(latitude: 40.0, longitude: -3.0)
         
-//        let restaurant0 = Restaurant(
-//            idCompany: user0.id!,
-//            name: "Shushi Bar",
-//            type: "Japonés",
-//            idAddress: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb384")!,
-//            idCoordinates: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb385")!,
-//            idSchedule: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb382")!
-//        )
-//
-//        let restaurant1 = Restaurant(
-//            idCompany: user1.id!,
-//            name: "Tapas Bar",
-//            type: "Español",
-//            idAddress: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb384")!,
-//            idCoordinates: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb385")!,
-//            idSchedule: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb382")!
-//        )
-//        
-//        let restaurant2 = Restaurant(
-//            idCompany: user2.id!,
-//            name: "Pizzaria",
-//            type: "Italiano",
-//            idAddress: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb384")!,
-//            idCoordinates: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb385")!,
-//            idSchedule: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb382")!
-//        )
-//        
-//        let restaurant3 = Restaurant(
-//            idCompany: user2.id!,
-//            name: "Pasta Mas",
-//            type: "Italiano",
-//            idAddress: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb384")!,
-//            idCoordinates: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb385")!,
-//            idSchedule: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb382")!
-//        )
-//        
-//        try await [restaurant0, restaurant1].create(on: database)
+        try await [coordinates1, coordinates2, coordinates3, coordinates4, coordinates5].create(on: database)
+        
+        
+        let restaurant0 = try Restaurant(
+            idCompany: user0.id!,
+            name: "Shushi Bar",
+            type: "Japonés",
+            idAddress: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb384")!,
+            coordinates: coordinates1,
+            idSchedule: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb381")!
+        )
+        
+        
+        let restaurant1 = try Restaurant(
+            idCompany: user0.id!,
+            name: "Mao Sushi",
+            type: "Japonés",
+            idAddress: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb383")!,
+            coordinates: coordinates2,
+            idSchedule: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb380")!
+        )
+        
+        let restaurant2 = try Restaurant(
+            idCompany: user0.id!,
+            name: "El Paraíso",
+            type: "Chino",
+            idAddress: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb373")!,
+            coordinates: coordinates3,
+            idSchedule: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb370")!
+        )
+        
+        
+        let restaurant3 = try Restaurant(
+            idCompany: user1.id!,
+            name: "Pizza Napoli",
+            type: "Pizzeria",
+            idAddress: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb323")!,
+            coordinates: coordinates4,
+            idSchedule: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb320")!
+        )
+        
+        let restaurant4 = try Restaurant(
+            idCompany: user1.id!,
+            name: "Il Quattro",
+            type: "Italiano",
+            idAddress: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb326")!,
+            coordinates: coordinates5,
+            idSchedule: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb321")!
+        )
+        
+        
+        try await [restaurant0, restaurant1, restaurant2, restaurant3, restaurant4].create(on: database)
+        
         
          /*
           Thread 1: Fatal error: Error raised at top level: PSQLError(

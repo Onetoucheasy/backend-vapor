@@ -76,7 +76,7 @@ struct RestaurantController : RouteCollection{
         try await coordinates.create(on: req.db)
 
 
-        let restaurant = try Restaurant(idCompany: restaurantCreate.idCompany, name: restaurantCreate.name, type: restaurantCreate.type, idAddress: restaurantCreate.idAddress, coordinates: coordinates, offers: [], idSchedule: restaurantCreate.idSchedule)
+        let restaurant = try Restaurant(idCompany: restaurantCreate.idCompany, name: restaurantCreate.name, type: restaurantCreate.type, idAddress: restaurantCreate.idAddress, coordinates: coordinates, idSchedule: restaurantCreate.idSchedule)
         
       //  try await coordinates.create(on: req.db)
         
@@ -149,8 +149,6 @@ struct RestaurantController : RouteCollection{
         
         return restaurants
     }
-
-    
     
     // Update a restaurant
     func updateRestaurant(req: Request) async throws -> String {
@@ -182,7 +180,23 @@ struct RestaurantController : RouteCollection{
         return restaurant
     }
     
+    // Retrieve all Restaurants with the List of Offers
+    func restaurantsWithOffers(req: Request) async throws -> RestResponse {
+
+        let restaurants = try await Restaurant.query(on: req.db).all()
+        
+        var rest : [Restaurant.Public] = []
        
+        for restaurant in restaurants {
+            try await restaurant.$offers.load(on: req.db)
+            
+            rest.append(Restaurant.Public(id: restaurant.id!, idCompany: restaurant.idCompany , name: restaurant.name, type: restaurant.type, idAddress: restaurant.idAddress, offers: restaurant.offers) )
+        }
+
+        return RestResponse(totalResults: rest.count, restaurants: rest)
+    }
+       
+    // Retrieve one Restaurant with the List of Offers through RestaurantID
    func restaurantWithOffersByID(req: Request) async throws -> Restaurant.Public {
        
        let id = req.parameters.get("id", as: UUID.self)
@@ -193,23 +207,6 @@ struct RestaurantController : RouteCollection{
        
        try await restaurant.$offers.load(on: req.db)
        
-       return Restaurant.Public(id: restaurant.id!, idCompany: restaurant.idCompany, name: restaurant.name, type: restaurant.type, offers: restaurant.offers)
+       return Restaurant.Public(id: restaurant.id!, idCompany: restaurant.idCompany, name: restaurant.name, type: restaurant.type, idAddress: restaurant.idAddress, offers: restaurant.offers)
    }
-    
-    func restaurantsWithOffers(req: Request) async throws -> [Restaurant.Public] {
-
-        let restaurants = try await Restaurant.query(on: req.db).all()
-        
-        var rest : [Restaurant.Public] = []
-       
-        for restaurant in restaurants {
-            try await restaurant.$offers.load(on: req.db)
-            
-            rest.append(Restaurant.Public(id: restaurant.id!, idCompany: restaurant.idCompany , name: restaurant.name, type: restaurant.type, offers: restaurant.offers) )
-        }
-        
-        return rest
-        
-    }
-    
 }

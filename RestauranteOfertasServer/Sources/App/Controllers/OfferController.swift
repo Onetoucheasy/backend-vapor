@@ -30,16 +30,5 @@ struct OfferController : RouteCollection{
             throw Abort(.notFound)
         }
         return offer
-    }
-    
-    func getAllOffersWithRestaurantsData(req: Request) async throws -> [Offer]{
-     
-        let offersWithRestaurantsData = try await Offer.query(on: req.db)
-            .join(Restaurant.self, on: \Restaurant.$id == \Offer.$idRestaurant )
-            //.join(Offer.self, on: \Offer.$idRestaurant == \Restaurant.$id )
-            .all()
-            
-        return offersWithRestaurantsData
-    }
-    
+    }    
 }

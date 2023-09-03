@@ -52,8 +52,7 @@ final class Restaurant: Content, Model {
     // Inits
     init() { }
     
-  //  internal init(id: UUID? = nil, idCompany: UUID, createdAt: Date? = nil, name: String, cif: String? = nil, type: String, idAddress: UUID, idCoordinates: Coordinates, idSchedule: UUID) {
-    internal init(id: UUID? = nil, idCompany: UUID, createdAt: Date? = nil, name: String, cif: String? = nil, type: String, idAddress: UUID, coordinates: Coordinates, offers: [Offer], idSchedule: UUID) throws {
+    internal init(id: UUID? = nil, idCompany: UUID, createdAt: Date? = nil, name: String, cif: String? = nil, type: String, idAddress: UUID, coordinates: Coordinates, idSchedule: UUID) throws {
         self.id = id
         self.idCompany = idCompany
         self.createdAt = createdAt
@@ -63,7 +62,7 @@ final class Restaurant: Content, Model {
         self.idAddress = idAddress
         //self.$coordinates.id = try coordinates.requireID()
         self.$coordinates.id = coordinates.id
-        self.offers = offers
+        //self.offers = offers
         
         self.idSchedule = idSchedule
     }
@@ -111,7 +110,7 @@ extension Restaurant {
         //let cif: String?
         let type: String
        //TODO: The next id should not be shown. Do the Query and return the real values as nested Objects. 
-        //let idAddress: UUID
+        let idAddress: UUID
         //let idCoordinates: UUID
         //let adSchedule: UUID
         let offers: [Offer]

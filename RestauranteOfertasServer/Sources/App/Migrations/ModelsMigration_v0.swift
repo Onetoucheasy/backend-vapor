@@ -75,7 +75,7 @@ struct ModelsMigration_v0: AsyncMigration {
             .field("id_currency", .uuid) //FK TODO
             .field("minimum_customers", .int)
             .field("maximum_customers", .int)
-            .field("restaurant", .uuid, .required, .references(Restaurant.schema, "id"))
+            //.field("restaurant", .uuid, .required, .references(Restaurant.schema, "id"))
             .create()
     }
     

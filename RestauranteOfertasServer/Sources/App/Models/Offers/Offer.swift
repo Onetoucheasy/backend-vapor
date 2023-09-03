@@ -77,7 +77,7 @@ final class Offer: Content, Model {
         self.idCurrency = idCurrency
         self.minimumCustomers = minimumCustomers
         self.maximumCustomers =  maximumCustomers
-        self.$restaurant.id = idRestaurant
+        //self.$restaurant.id = idRestaurant
     }
 }
 // MARK: - DTOs -
