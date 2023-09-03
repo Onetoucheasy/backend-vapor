@@ -45,6 +45,16 @@ struct ModelsMigration_v0: AsyncMigration {
                .field("longitude", .double, .required )
                .create()
           
+        try await database
+            .schema(Address.schema)
+            .id()
+            .field("country", .string, .required)
+            .field("state", .string, .required)
+            .field("city", .string, .required)
+            .field("zip_code", .string, .required)
+            .field("address", .string, .required)
+            .create()
+            
         
         try await database
             .schema(Restaurant.schema)
@@ -54,8 +64,8 @@ struct ModelsMigration_v0: AsyncMigration {
             .field("name", .string, .required)
             .field("cif", .string) //Required?
             .field("type", .string, .required)
-            .field("id_address", .string,.required) //FK
-            .field("id_coordinates", .uuid, .references(Coordinates.schema, "id")) //FK
+            .field("id_address", .uuid,.references(Address.schema, "id")) //FK //One to one
+            .field("id_coordinates", .uuid, .references(Coordinates.schema, "id")) //FK //One to many but addes as one to one ¿?
             .field("id_schedule", .string,.required) //FK
             .create()
         
@@ -66,6 +76,7 @@ struct ModelsMigration_v0: AsyncMigration {
         try await database.enum("user_type").delete()
         try await database.schema(User.schema).delete()
         try await database.schema(Coordinates.schema).delete()
+        try await database.schema(Address.schema).delete()
         try await database.schema(Restaurant.schema).delete()
     }
 }

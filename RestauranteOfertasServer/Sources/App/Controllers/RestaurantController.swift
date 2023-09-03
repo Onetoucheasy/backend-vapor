@@ -73,8 +73,12 @@ struct RestaurantController : RouteCollection{
         let coordinates = try Coordinates(latitude: restaurantCreate.latitude, longitude: restaurantCreate.longitude)
         
         try await coordinates.create(on: req.db)
-
-        let restaurant = try Restaurant(idCompany: restaurantCreate.idCompany, name: restaurantCreate.name, type: restaurantCreate.type, idAddress: restaurantCreate.idAddress, coordinates: coordinates ,idSchedule: restaurantCreate.idSchedule)
+        
+        let address = try Address(country: restaurantCreate.country, state: restaurantCreate.state, city: restaurantCreate.city, zipCode: restaurantCreate.zipCode, address: restaurantCreate.address)
+        
+        try await address.create(on: req.db)
+        
+        let restaurant = try Restaurant(idCompany: restaurantCreate.idCompany, name: restaurantCreate.name, type: restaurantCreate.type, address: address, coordinates: coordinates ,idSchedule: restaurantCreate.idSchedule)
         
       //  try await coordinates.create(on: req.db)
 

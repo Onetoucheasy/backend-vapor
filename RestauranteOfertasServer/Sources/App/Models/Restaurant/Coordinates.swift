@@ -7,7 +7,7 @@
 
 import Vapor
 import Fluent
-import CoreLocation
+import CoreLocation //TODO: Delete? Keep coordiantes as double?
 
 final class Coordinates: Model{
   

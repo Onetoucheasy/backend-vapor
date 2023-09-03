@@ -33,10 +33,13 @@ final class Restaurant: Content, Model {
     @Field(key: "type") //FK?
     var type: String //TODO: String or Enum?
     
-    @Field(key: "id_address") //FK
-    var idAddress: UUID
+//    @Field(key: "id_address") //FK
+//    var idAddress: UUID
+    @Parent(key: "id_address") //FK
+    var address: Address
     
     //TODO: I think that the parent table is restaurant
+   // @Parent(key: "id_coordinates") //FK // One Restaurant have one set of coordinates, but a set of coordiantes can be used by diferent restaurants.
     @OptionalParent(key: "id_coordinates") //FK // One Restaurant have one set of coordinates, but a set of coordiantes can be used by diferent restaurants.
     var coordinates: Coordinates?
 //    @Children(for: \.$restaurant) //FK // One Restaurant have one set of coordinates, but a set of coordiantes can be used by diferent restaurants.
@@ -49,15 +52,15 @@ final class Restaurant: Content, Model {
     // Inits
     init() { }
     
-  //  internal init(id: UUID? = nil, idCompany: UUID, createdAt: Date? = nil, name: String, cif: String? = nil, type: String, idAddress: UUID, idCoordinates: Coordinates, idSchedule: UUID) {
-    internal init(id: UUID? = nil, idCompany: UUID, createdAt: Date? = nil, name: String, cif: String? = nil, type: String, idAddress: UUID, coordinates: Coordinates ,idSchedule: UUID) throws {
+ 
+    internal init(id: UUID? = nil, idCompany: UUID, createdAt: Date? = nil, name: String, cif: String? = nil, type: String, address: Address, coordinates: Coordinates ,idSchedule: UUID) throws {
         self.id = id
         self.idCompany = idCompany
         self.createdAt = createdAt
         self.name = name
         self.cif = cif
         self.type = type
-        self.idAddress = idAddress
+        self.$address.id = try address.requireID() // coordinates.id //TODO: Check
         //self.$coordinates.id = try coordinates.requireID()
         self.$coordinates.id = coordinates.id
         self.idSchedule = idSchedule
@@ -73,7 +76,12 @@ extension Restaurant {
         let name: String
         let cif: String?
         let type: String
-        let idAddress: UUID
+       //let idAddress: UUID
+        let country: String
+        let state: String
+        let city: String
+        let zipCode: String //ZipCode is a number, but it does not work as an average number. As a string is more flexible.
+        let address: String
       //  let idCoordinates: UUID
         let latitude: Double
         let longitude: Double
@@ -87,12 +95,20 @@ extension Restaurant {
             validations.add("name", as: String.self, is: !.empty, required: true)
             validations.add("cif", as: String.self, required: true)
             validations.add("type", as: String.self, is: !.empty, required: true)
-            validations.add("idAddress", as: UUID.self, required: true)
+           
+            //Address validations
+            //validations.add("idAddress", as: UUID.self, required: true)
+            validations.add("country", as: String.self, required: true)
+            validations.add("state", as: String.self, required: true)
+            validations.add("city", as: String.self, required: true)
+            validations.add("zipCode", as: String.self, required: true)
+            validations.add("address", as: String.self, required: true)
+            
+            //Coordinates validations
             //validations.add("idCoordinates", as: UUID.self, required: true)
             validations.add("latitude", as: Double.self, required: true)
             validations.add("longitude", as: Double.self, required: true)
-           // validations.add("latitude", as: String.self, required: true)
-           // validations.add("longitude", as: String.self, required: true)
+            
             validations.add("idSchedule", as: UUID.self, required: true)
         }
         
