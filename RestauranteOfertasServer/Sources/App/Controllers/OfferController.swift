@@ -41,4 +41,5 @@ struct OfferController : RouteCollection{
             
         return offersWithRestaurantsData
     }
+    
 }

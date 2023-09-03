@@ -18,7 +18,7 @@ struct RestaurantController : RouteCollection{
             builder.put("restaurants", ":id", use: updateRestaurant)
             builder.get("restaurants-company", ":company", use: getRestaurantsByCompany)
             builder.get("restaurantWithOffer", ":id", use: restaurantWithOffersByID)//restaurantWithOffersByID
-            //builder.get("restaurantWithOffer", use: restaurantsWithOffers)//restaurantWithOffersByID
+            builder.get("restaurantWithOffer", use: restaurantsWithOffers)//restaurantWithOffersByID
         }
     }
     
@@ -196,13 +196,20 @@ struct RestaurantController : RouteCollection{
        return Restaurant.Public(id: restaurant.id!, idCompany: restaurant.idCompany, name: restaurant.name, type: restaurant.type, offers: restaurant.offers)
    }
     
-//    func restaurantsWithOffers(req: Request) async throws -> [Restaurant.Public] {
-//
-//        let rest: [Restaurant.Public] = try await Restaurant.query(on: req.db).all().map { restaurant in
-//            restaurant.$offers.load(on: req.db)
-//            return Restaurant.Public(id: restaurant.id!, idCompany: restaurant.idCompany, name: restaurant.name, type: restaurant.type, offers: restaurant.offers)
-//        }
-//
-//        return rest
-//    }
+    func restaurantsWithOffers(req: Request) async throws -> [Restaurant.Public] {
+
+        let restaurants = try await Restaurant.query(on: req.db).all()
+        
+        var rest : [Restaurant.Public] = []
+       
+        for restaurant in restaurants {
+            try await restaurant.$offers.load(on: req.db)
+            
+            rest.append(Restaurant.Public(id: restaurant.id!, idCompany: restaurant.idCompany , name: restaurant.name, type: restaurant.type, offers: restaurant.offers) )
+        }
+        
+        return rest
+        
+    }
+    
 }
