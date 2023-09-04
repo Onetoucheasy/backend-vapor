@@ -14,9 +14,9 @@ struct RestaurantController : RouteCollection{
             builder.post("addRestaurant", use: addRestaurant)
             builder.get("restaurants", use: allRestaurants)
             builder.get("restaurants", ":id", use: getRestaurantById)
+            builder.get("restaurants-company", ":company", use: getRestaurantsByCompany)
             builder.get("restaurants-type", ":type" , use: getRestaurantByType)
             builder.put("restaurants", ":id", use: updateRestaurant)
-            builder.get("restaurants-company", ":company", use: getRestaurantsByCompany)
 
         }
     }
@@ -85,13 +85,31 @@ struct RestaurantController : RouteCollection{
         
         try await restaurant.create(on: req.db)
        
-        return .ok  
+        return .ok  //.ok = 200, .created = .201 //TODO: Shoud it be .created insted of .ok?
     }
     
-    
+    //TODO: The commented one works but return the ids.
     //Retrieve all restaurants
-    func allRestaurants(req: Request) async throws -> [Restaurant]{
-        try await Restaurant.query(on: req.db).all()
+//    func allRestaurants(req: Request) async throws -> [Restaurant]{
+//        try await Restaurant.query(on: req.db).all()
+//    }
+    //https://docs.vapor.codes/basics/async/?h=eventloopfuture#eventloopfutures
+    //Retrieve all restaurants
+    func allRestaurants(req: Request)  throws -> EventLoopFuture<Restaurant.APIResponse>{
+        return try Restaurant.query(on: req.db)
+            .join(Coordinates.self, on: \Restaurant.$coordinates.$id == \Coordinates.$id)
+            .with(\.$coordinates)
+            .join(Address.self, on: \Restaurant.$address.$id == \Address.$id)
+            .with(\.$address)
+            .all()
+            .map{ restaurants in
+                let apiResponse =  Restaurant.APIResponse(
+                    code: .ok,
+                    status: "success",
+                    totalResults: restaurants.count,
+                    restaurants: restaurants)
+                return apiResponse
+            }
     }
     
     //Retrieve a restaurant by idRestaurant

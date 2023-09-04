@@ -134,5 +134,12 @@ extension Restaurant {
         let adSchedule: UUID
         
     }
+    //Struct to return all the restaurants with the nested values.
+    struct APIResponse: Content{
+        let code: HTTPStatus
+        let status: String
+        let totalResults: Int
+        let restaurants: [Restaurant]
+    }
     
 }
