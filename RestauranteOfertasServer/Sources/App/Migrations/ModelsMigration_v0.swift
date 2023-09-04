@@ -66,7 +66,9 @@ struct ModelsMigration_v0: AsyncMigration {
             .field("type", .string, .required)
             .field("id_address", .uuid,.references(Address.schema, "id")) //FK //One to one
             .field("id_coordinates", .uuid, .references(Coordinates.schema, "id")) //FK //One to many but addes as one to one ¿?
-            .field("id_schedule", .string,.required) //FK
+            //.field("id_schedule", .string,.required) //FK
+            .field("opening_hour", .string)
+            .field("closing_hour", .string)
             .create()
         
    

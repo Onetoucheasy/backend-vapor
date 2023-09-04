@@ -45,15 +45,21 @@ final class Restaurant: Content, Model {
 //    @Children(for: \.$restaurant) //FK // One Restaurant have one set of coordinates, but a set of coordiantes can be used by diferent restaurants.
 //    var coordinates: [Coordinates]
     
+    //TODO: do not remove the id schedule commented file
+//    @Field(key: "id_schedule") //FK
+//    var idSchedule: UUID
     
-    @Field(key: "id_schedule") //FK
-    var idSchedule: UUID
+    @Field(key: "opening_hour")
+    var openingHour: String
+    
+    @Field(key: "closing_hour")
+    var closingHour: String
     
     // Inits
     init() { }
     
  
-    internal init(id: UUID? = nil, idCompany: UUID, createdAt: Date? = nil, name: String, cif: String? = nil, type: String, address: Address, coordinates: Coordinates ,idSchedule: UUID) throws {
+    internal init(id: UUID? = nil, idCompany: UUID, createdAt: Date? = nil, name: String, cif: String? = nil, type: String, address: Address, coordinates: Coordinates, openingHour: String, closingHour: String) throws {
         self.id = id
         self.idCompany = idCompany
         self.createdAt = createdAt
@@ -63,7 +69,8 @@ final class Restaurant: Content, Model {
         self.$address.id = try address.requireID() // coordinates.id //TODO: Check
         //self.$coordinates.id = try coordinates.requireID()
         self.$coordinates.id = coordinates.id
-        self.idSchedule = idSchedule
+        self.openingHour = openingHour
+        self.closingHour = closingHour
     }
     
 }
@@ -76,18 +83,15 @@ extension Restaurant {
         let name: String
         let cif: String?
         let type: String
-       //let idAddress: UUID
         let country: String
         let state: String
         let city: String
         let zipCode: String //ZipCode is a number, but it does not work as an average number. As a string is more flexible.
         let address: String
-      //  let idCoordinates: UUID
         let latitude: Double
         let longitude: Double
-//        let latitude: String
-//        let longitude: String
-        let idSchedule: UUID
+        let openingHour : String
+        let closingHour : String //The api request can not send the Date Type, it can send numer, string, bool , object, but not date
         
         static func validations(_ validations: inout Vapor.Validations) {
             
@@ -109,7 +113,10 @@ extension Restaurant {
             validations.add("latitude", as: Double.self, required: true)
             validations.add("longitude", as: Double.self, required: true)
             
-            validations.add("idSchedule", as: UUID.self, required: true)
+            //validations.add("idSchedule", as: UUID.self, required: true)
+            //TODO: Maybe the validator is String
+            validations.add("openingHour", as: String.self, required: true)
+            validations.add("closingHour", as: String.self, required: true)
         }
         
     }

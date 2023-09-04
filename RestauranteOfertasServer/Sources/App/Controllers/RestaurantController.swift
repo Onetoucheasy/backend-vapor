@@ -77,31 +77,15 @@ struct RestaurantController : RouteCollection{
         let address = try Address(country: restaurantCreate.country, state: restaurantCreate.state, city: restaurantCreate.city, zipCode: restaurantCreate.zipCode, address: restaurantCreate.address)
         
         try await address.create(on: req.db)
-        
-        let restaurant = try Restaurant(idCompany: restaurantCreate.idCompany, name: restaurantCreate.name, type: restaurantCreate.type, address: address, coordinates: coordinates ,idSchedule: restaurantCreate.idSchedule)
-        
-      //  try await coordinates.create(on: req.db)
-
-        try await restaurant.create(on: req.db)
-     //   try await coordinates.$restaurant.create(restaurant, on: req.db)
        
-        return .ok
-
-        //try await restaurant.$coordinates.create(on: req.db)
-//        try await req.db.transaction { database in
-//            try await coordinates.save(on: database).flatMap<Coordinates> { values  in
-//
-//                let savedCoordinates = Coordinates.find(coordinates.id, on: req.db)
-//                if let idCoordinates = values.{
-//                    restaurant.id = coordinates.id
-//                }
-//            }
-//            try await restaurant.save(on: database)
-//            coordinates.restaurant.append(restaurant)
-//        }
-        return .ok
+//        let openingHourDate = Date.parseISO8601StringToHourMinuteDate(iso8601StringDate: restaurantCreate.openingHour)
+//        let closingHourDate = Date.parseISO8601StringToHourMinuteDate(iso8601StringDate: restaurantCreate.closingHour)
         
-  
+        let restaurant = try Restaurant(idCompany: restaurantCreate.idCompany, name: restaurantCreate.name, type: restaurantCreate.type, address: address, coordinates: coordinates, openingHour: restaurantCreate.openingHour  , closingHour: restaurantCreate.closingHour)
+        
+        try await restaurant.create(on: req.db)
+       
+        return .ok  
     }
     
     
