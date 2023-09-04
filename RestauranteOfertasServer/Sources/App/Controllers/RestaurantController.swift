@@ -14,10 +14,11 @@ struct RestaurantController : RouteCollection{
             builder.post("addRestaurant", use: addRestaurant)
             builder.get("restaurants", use: allRestaurants)
             builder.get("restaurants", ":id", use: getRestaurantById)
-            builder.get("restaurants-company", ":company", use: getRestaurantsByCompany)
             builder.get("restaurants-type", ":type" , use: getRestaurantByType)
             builder.put("restaurants", ":id", use: updateRestaurant)
-
+            builder.get("restaurants-company", ":company", use: getRestaurantsByCompany)
+            builder.get("restaurantWithOffer", ":id", use: getRestaurantWithOffersByID)//restaurantWithOffersByID
+            builder.get("restaurantsWithOffer", use: getRestaurantsWithOffers)
         }
     }
     
@@ -152,8 +153,6 @@ struct RestaurantController : RouteCollection{
         
         return restaurants
     }
-
-    
     
     // Update a restaurant
     func updateRestaurant(req: Request) async throws -> String {
@@ -174,5 +173,44 @@ struct RestaurantController : RouteCollection{
         
         return "Restaurant Updated"
     }
+    
+    //Retrieve a restaurant by idRestaurant
+    func restaurantByID(req: Request) async throws -> Restaurant {
+        let id = req.parameters.get("id", as: UUID.self)
+        
+        guard let restaurant = try await Restaurant.find(id, on: req.db) else {
+            throw Abort(.notFound)
+        }
+        return restaurant
+    }
+    
+    // Retrieve all Restaurants with the List of Offers
+    func getRestaurantsWithOffers(req: Request) async throws -> RestResponse {
 
+        let restaurants = try await Restaurant.query(on: req.db).all()
+        
+        var rest : [Restaurant.Public] = []
+       
+        for restaurant in restaurants {
+            try await restaurant.$offers.load(on: req.db)
+            
+            rest.append(Restaurant.Public(id: restaurant.id!, idCompany: restaurant.idCompany , name: restaurant.name, type: restaurant.type, idAddress: restaurant.idAddress, offers: restaurant.offers) )
+        }
+
+        return RestResponse(totalResults: rest.count, restaurants: rest)
+    }
+       
+    // Retrieve one Restaurant with the List of Offers through RestaurantID
+   func getRestaurantWithOffersByID(req: Request) async throws -> Restaurant.Public {
+       
+       let id = req.parameters.get("id", as: UUID.self)
+       
+       guard let restaurant = try await Restaurant.find(id, on: req.db) else {
+           throw Abort(.notFound)
+       }
+       
+       try await restaurant.$offers.load(on: req.db)
+       
+       return Restaurant.Public(id: restaurant.id!, idCompany: restaurant.idCompany, name: restaurant.name, type: restaurant.type, idAddress: restaurant.idAddress, offers: restaurant.offers)
+   }
 }

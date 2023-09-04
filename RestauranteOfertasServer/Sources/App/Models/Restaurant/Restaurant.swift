@@ -44,6 +44,8 @@ final class Restaurant: Content, Model {
     var coordinates: Coordinates?
 //    @Children(for: \.$restaurant) //FK // One Restaurant have one set of coordinates, but a set of coordiantes can be used by diferent restaurants.
 //    var coordinates: [Coordinates]
+    @Children(for: \Offer.$restaurant)
+    var offers: [Offer]
     
     //TODO: do not remove the id schedule commented file
 //    @Field(key: "id_schedule") //FK
@@ -130,8 +132,9 @@ extension Restaurant {
         let type: String
        //TODO: The next id should not be shown. Do the Query and return the real values as nested Objects. 
         let idAddress: UUID
-        let idCoordinates: UUID
-        let adSchedule: UUID
+        //let idCoordinates: UUID
+        //let adSchedule: UUID
+        let offers: [Offer]
         
     }
     //Struct to return all the restaurants with the nested values.
