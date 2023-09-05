@@ -23,14 +23,10 @@ final class Coordinates: Model{
     var restaurant: [Restaurant]
     
     @Field(key: "latitude")
-    //var latitude: CLLocationDegrees
     var latitude: Double
-   // var latitude: String
     
     @Field(key: "longitude")
-//    var longitude: CLLocationDegrees
     var longitude: Double
-//    var longitude: String
     
     //Inits:
     init(){}

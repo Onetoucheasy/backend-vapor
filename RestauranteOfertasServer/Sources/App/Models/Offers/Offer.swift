@@ -62,12 +62,12 @@ final class Offer: Content, Model {
     // Inits
     init() { }
     
-    internal init(id: UUID?, idRestaurant: UUID, idState: UUID , title: String, image: String, description: String, quantityOffered: Int, createdDate: Date?, startHour: Date, endHour: Date, price: Int, idCurrency: UUID,minimumCustomers: Int,maximumCustomers: Int) {
+    internal init(id: UUID? = nil, idRestaurant: UUID, idState: UUID , title: String, image: String, description: String, quantityOffered: Int, startHour: Date, endHour: Date, price: Int, idCurrency: UUID,minimumCustomers: Int,maximumCustomers: Int) {
         self.id = id
         self.idRestaurant = idRestaurant
         self.idState = idState
         self.title = title
-        self.createdDate = createdDate
+       // self.createdDate = createdDate
         self.image = image
         self.description = description
         self.quantityOffered = quantityOffered

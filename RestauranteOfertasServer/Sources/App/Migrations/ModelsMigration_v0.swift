@@ -62,6 +62,7 @@ struct ModelsMigration_v0: AsyncMigration {
             .field("id_company", .uuid, .required, .references(User.schema, .id)) //FK
             .field("created_at", .string)
             .field("name", .string, .required)
+            .field("picture", .string, .required)
             .field("cif", .string) //Required?
             .field("type", .string, .required)
             .field("id_address", .uuid,.references(Address.schema, "id")) //FK //One to one

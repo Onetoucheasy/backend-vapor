@@ -27,6 +27,9 @@ final class Restaurant: Content, Model {
     @Field(key: "name")
     var name: String
     
+    @Field(key: "picture")
+    var picture: String
+    
     @Field(key: "cif") //TODO: Are we going to request "cif"?
     var cif: String?
     
@@ -44,6 +47,7 @@ final class Restaurant: Content, Model {
     var coordinates: Coordinates?
 //    @Children(for: \.$restaurant) //FK // One Restaurant have one set of coordinates, but a set of coordiantes can be used by diferent restaurants.
 //    var coordinates: [Coordinates]
+    
     @Children(for: \Offer.$restaurant)
     var offers: [Offer]
     
@@ -61,11 +65,12 @@ final class Restaurant: Content, Model {
     init() { }
     
  
-    internal init(id: UUID? = nil, idCompany: UUID, createdAt: Date? = nil, name: String, cif: String? = nil, type: String, address: Address, coordinates: Coordinates, openingHour: String, closingHour: String) throws {
+    init(id: UUID? = nil, idCompany: UUID, createdAt: Date? = nil, name: String, picture: String, cif: String? = nil, type: String, address: Address, coordinates: Coordinates, openingHour: String, closingHour: String) throws {
         self.id = id
         self.idCompany = idCompany
         self.createdAt = createdAt
         self.name = name
+        self.picture = picture
         self.cif = cif
         self.type = type
         self.$address.id = try address.requireID() // coordinates.id //TODO: Check
@@ -83,6 +88,7 @@ extension Restaurant {
     struct Create: Content, Validatable {
         let idCompany: UUID
         let name: String
+        let picture: String
         let cif: String?
         let type: String
         let country: String
@@ -99,6 +105,7 @@ extension Restaurant {
             
             validations.add("idCompany", as: UUID.self, required: true)
             validations.add("name", as: String.self, is: !.empty, required: true)
+            validations.add("picture", as: String.self, is: !.empty, required: true)
             validations.add("cif", as: String.self, required: true)
             validations.add("type", as: String.self, is: !.empty, required: true)
            
@@ -129,9 +136,10 @@ extension Restaurant {
         let idCompany: UUID
         let name: String
         //let cif: String?
+        let picture: String
         let type: String
        //TODO: The next id should not be shown. Do the Query and return the real values as nested Objects. 
-        let idAddress: UUID
+        let address: Address
         //let idCoordinates: UUID
         //let adSchedule: UUID
         let offers: [Offer]

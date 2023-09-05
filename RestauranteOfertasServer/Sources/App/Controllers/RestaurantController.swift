@@ -75,14 +75,14 @@ struct RestaurantController : RouteCollection{
         
         try await coordinates.create(on: req.db)
         
-        let address = try Address(country: restaurantCreate.country, state: restaurantCreate.state, city: restaurantCreate.city, zipCode: restaurantCreate.zipCode, address: restaurantCreate.address)
+        let address =  Address(country: restaurantCreate.country, state: restaurantCreate.state, city: restaurantCreate.city, zipCode: restaurantCreate.zipCode, address: restaurantCreate.address)
         
         try await address.create(on: req.db)
        
 //        let openingHourDate = Date.parseISO8601StringToHourMinuteDate(iso8601StringDate: restaurantCreate.openingHour)
 //        let closingHourDate = Date.parseISO8601StringToHourMinuteDate(iso8601StringDate: restaurantCreate.closingHour)
         
-        let restaurant = try Restaurant(idCompany: restaurantCreate.idCompany, name: restaurantCreate.name, type: restaurantCreate.type, address: address, coordinates: coordinates, openingHour: restaurantCreate.openingHour  , closingHour: restaurantCreate.closingHour)
+        let restaurant = try Restaurant(idCompany: restaurantCreate.idCompany, name: restaurantCreate.name, picture: restaurantCreate.picture, type: restaurantCreate.type, address: address, coordinates: coordinates, openingHour: restaurantCreate.openingHour  , closingHour: restaurantCreate.closingHour)
         
         try await restaurant.create(on: req.db)
        
@@ -97,7 +97,7 @@ struct RestaurantController : RouteCollection{
     //https://docs.vapor.codes/basics/async/?h=eventloopfuture#eventloopfutures
     //Retrieve all restaurants
     func allRestaurants(req: Request)  throws -> EventLoopFuture<Restaurant.APIResponse>{
-        return try Restaurant.query(on: req.db)
+        return Restaurant.query(on: req.db)
             .join(Coordinates.self, on: \Restaurant.$coordinates.$id == \Coordinates.$id)
             .with(\.$coordinates)
             .join(Address.self, on: \Restaurant.$address.$id == \Address.$id)
@@ -194,7 +194,7 @@ struct RestaurantController : RouteCollection{
         for restaurant in restaurants {
             try await restaurant.$offers.load(on: req.db)
             
-            rest.append(Restaurant.Public(id: restaurant.id!, idCompany: restaurant.idCompany , name: restaurant.name, type: restaurant.type, idAddress: restaurant.idAddress, offers: restaurant.offers) )
+            rest.append(Restaurant.Public(id: restaurant.id!, idCompany: restaurant.idCompany , name: restaurant.name, picture: restaurant.picture, type: restaurant.type, address: restaurant.address, offers: restaurant.offers) )
         }
 
         return RestResponse(totalResults: rest.count, restaurants: rest)
@@ -211,6 +211,6 @@ struct RestaurantController : RouteCollection{
        
        try await restaurant.$offers.load(on: req.db)
        
-       return Restaurant.Public(id: restaurant.id!, idCompany: restaurant.idCompany, name: restaurant.name, type: restaurant.type, idAddress: restaurant.idAddress, offers: restaurant.offers)
+       return Restaurant.Public(id: restaurant.id!, idCompany: restaurant.idCompany, name: restaurant.name, picture: restaurant.picture, type: restaurant.type, address: restaurant.address, offers: restaurant.offers)
    }
 }

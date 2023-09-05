@@ -10,8 +10,7 @@ import Fluent
 
 struct PopulateInitialData: AsyncMigration{
     func prepare(on database: FluentKit.Database) async throws {
-        //Hashed Password
-        
+        //MARK: - Users -
         //Company Users
         let user0 = User(name: "Maria", email: "maria@prueba.com", password: try Bcrypt.hash("password0"), userType: UserType.company)
 
@@ -41,6 +40,9 @@ struct PopulateInitialData: AsyncMigration{
          6. PASTE into: RapidAPI > "Create Restaurant" request > Body > "idCompany"
          7. Run requests > 200 OK
       */
+        
+        //MARK: - Coordinates -
+        
         let coordinates1: Coordinates = try Coordinates(latitude: 40.3, longitude: -3.4)
         let coordinates2: Coordinates = try Coordinates(latitude: 40.2, longitude: -3.3)
         let coordinates3: Coordinates = try Coordinates(latitude: 40.0, longitude: -3.1)
@@ -49,57 +51,184 @@ struct PopulateInitialData: AsyncMigration{
         
         try await [coordinates1, coordinates2, coordinates3, coordinates4, coordinates5].create(on: database)
         
+        //MARK: - Adrresses -
+        
+        let address0 = Address(country: "Spain", state: "Comunidad de Madrid", city: "Móstoles", zipCode: "28661", address: "Calle Desengaño nº 21")
+        let address1 = Address(country: "Spain", state: "Comunidad de Madrid", city: "Alcorcón", zipCode: "28634", address: "Avenida de Europa nº 32")
+        let address2 = Address(country: "Spain", state: "Comunidad de Madrid", city: "Brunete", zipCode: "28345", address: "Calle Libro nº 1")
+        let address3 = Address(country: "Spain", state: "Comunidad de Madrid", city: "Pozuelo de Alcorcón", zipCode: "28345", address: "Calle de la Paz nº 25")
+        let address4 = Address(country: "Spain", state: "Comunidad de Madrid", city: "Villaviciosa de Odón", zipCode: "28645", address: "Calle Nueva nº 4")
+        
+        try await [address0, address1, address2, address3, address4].create(on: database)
+        
+        //MARK: - Restaurants -
         
         let restaurant0 = try Restaurant(
             idCompany: user0.id!,
             name: "Shushi Bar",
-            type: "Japonés",
-            idAddress: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb384")!,
+            picture: "https://images.pexels.com/photos/18078297/pexels-photo-18078297/free-photo-of-ciudad-calle-barra-urbano.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", type: "Japonés",
+            address: address0,
             coordinates: coordinates1,
-            idSchedule: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb381")!
+            openingHour: "8:30",
+            closingHour: "23:30"
         )
         
         
         let restaurant1 = try Restaurant(
             idCompany: user0.id!,
             name: "Mao Sushi",
-            type: "Japonés",
-            idAddress: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb383")!,
+            picture: "https://images.pexels.com/photos/3421920/pexels-photo-3421920.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", type: "Japonés",
+            address: address1,
             coordinates: coordinates2,
-            idSchedule: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb380")!
+            openingHour: "8:30",
+            closingHour: "23:30"
+            
         )
         
         let restaurant2 = try Restaurant(
             idCompany: user0.id!,
             name: "El Paraíso",
+            picture: "https://www.camarero10.com/wp-content/uploads/2020/02/como-distribuir-un-restaurante.jpg",
             type: "Chino",
-            idAddress: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb373")!,
+            address: address2,
             coordinates: coordinates3,
-            idSchedule: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb370")!
+            openingHour: "8:30",
+            closingHour: "23:30"
         )
         
         
         let restaurant3 = try Restaurant(
             idCompany: user1.id!,
-            name: "Pizza Napoli",
+            name: "Pizza Pera",
+            picture: "https://images.pexels.com/photos/7317358/pexels-photo-7317358.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
             type: "Pizzeria",
-            idAddress: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb323")!,
+            address: address3,
             coordinates: coordinates4,
-            idSchedule: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb320")!
+            openingHour: "8:30",
+            closingHour: "23:30"
         )
         
         let restaurant4 = try Restaurant(
             idCompany: user1.id!,
             name: "Il Quattro",
+            picture: "https://www.hotelaiguablava.com/media/restaurante/espacios/restaurante/01a-restaurante-hotel-aigua-blava.jpg",
             type: "Italiano",
-            idAddress: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb326")!,
+            address: address4,
             coordinates: coordinates5,
-            idSchedule: UUID(uuidString: "2a714742-c546-4cba-898e-7068353eb321")!
+            openingHour: "8:30",
+            closingHour: "23:30"
         )
-        
         
         try await [restaurant0, restaurant1, restaurant2, restaurant3, restaurant4].create(on: database)
         
+        //MARK: - Offers -
+        //TODO: price should be Double.
+        let offer0 = Offer(idRestaurant: restaurant0.id!,
+                            idState: UUID(uuidString: "01dfd76b-efad-4783-baa7-da38e6535b1c")!,
+                            title: "2 por 1 Sushi",
+                            image: "https://www.camarero10.com/wp-content/uploads/2020/02/como-distribuir-un-restaurante.jpg",
+                            description: "Disfruta doble de la comida.",
+                            quantityOffered: 4,
+                            startHour: Date.mapStringToDate(dateString: "2023-08-09T15:00:00Z"),
+                            endHour: Date.mapStringToDate(dateString: "2023-08-09T17:00:00Z"),
+                            price: 10,
+                            idCurrency: UUID(uuidString: "841f0816-0c97-4820-a3de-7cfa543b481d")!,
+                            minimumCustomers: 1,
+                            maximumCustomers: 6)
+        
+        let offer1 = Offer(idRestaurant: restaurant0.id!,
+                            idState: UUID(uuidString: "01dfd76b-efad-4783-baa7-da38e6535b1c")!,
+                            title: "3 por 1 Ramen",
+                            image: "https://www.restaurantelua.com/wp-content/uploads/2020/11/01_slider_restaurante_movil.jpg",
+                            description: "Disfruta muchoooo de la comida.",
+                            quantityOffered: 15,
+                            startHour: Date.mapStringToDate(dateString: "2023-08-09T15:00:00Z"),
+                            endHour: Date.mapStringToDate(dateString: "2023-08-09T17:30:00Z"),
+                            price: 104,
+                            idCurrency: UUID(uuidString: "841f0816-0c97-4820-a3de-7cfa543b481d")!,
+                            minimumCustomers: 3,
+                            maximumCustomers: 6)
+        
+        let offer2 = Offer(idRestaurant: restaurant0.id!,
+                            idState: UUID(uuidString: "01dfd76b-efad-4783-baa7-da38e6535b1c")!,
+                            title: "2 por 1 Sushi",
+                            image: "https://www.hotelaiguablava.com/media/restaurante/espacios/restaurante/01a-restaurante-hotel-aigua-blava.jpg",
+                            description: "Disfruta doble la comida.",
+                            quantityOffered: 10,
+                            startHour: Date.mapStringToDate(dateString: "2023-08-09T15:00:00Z"),
+                            endHour: Date.mapStringToDate(dateString: "2023-08-09T17:00:00Z"),
+                            price: 42,
+                            idCurrency: UUID(uuidString: "841f0816-0c97-4820-a3de-7cfa543b481d")!,
+                            minimumCustomers: 1,
+                            maximumCustomers: 2)
+        
+        let offer3 = Offer(idRestaurant: restaurant1.id!,
+                            idState: UUID(uuidString: "01dfd76b-efad-4783-baa7-da38e6535b1c")!,
+                            title: "50% dto en Sushi",
+                            image: "https://images.pexels.com/photos/6249501/pexels-photo-6249501.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                            description: "Disfruta a tope de la comida.",
+                            quantityOffered: 9,
+                            startHour: Date.mapStringToDate(dateString: "2023-08-09T15:30:00Z"),
+                            endHour: Date.mapStringToDate(dateString: "2023-08-09T17:40:00Z"),
+                            price: 0,
+                            idCurrency: UUID(uuidString: "841f0816-0c97-4820-a3de-7cfa543b481d")!,
+                            minimumCustomers: 1,
+                            maximumCustomers: 1)
+        
+        let offer4 = Offer(idRestaurant: restaurant1.id!,
+                            idState: UUID(uuidString: "01dfd76b-efad-4783-baa7-da38e6535b1c")!,
+                            title: "Tapas a Tope",
+                            image: "https://images.pexels.com/photos/14907793/pexels-photo-14907793.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                            description: "Tapa gratis con cualquier bebida.",
+                            quantityOffered: 15,
+                            startHour: Date.mapStringToDate(dateString: "2023-08-09T15:00:00Z"),
+                            endHour: Date.mapStringToDate(dateString: "2023-08-09T19:00:00Z"),
+                            price: 0,
+                            idCurrency: UUID(uuidString: "841f0816-0c97-4820-a3de-7cfa543b481d")!,
+                            minimumCustomers: 1,
+                            maximumCustomers: 5)
+        
+        let offer5 = Offer(idRestaurant: restaurant3.id!,
+                            idState: UUID(uuidString: "01dfd76b-efad-4783-baa7-da38e6535b1c")!,
+                            title: "3 x 1 en pizzas",
+                            image: "https://images.pexels.com/photos/12046657/pexels-photo-12046657.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                            description: "Pizzas para todos",
+                            quantityOffered: 9,
+                            startHour: Date.mapStringToDate(dateString: "2023-08-09T15:00:00Z"),
+                            endHour: Date.mapStringToDate(dateString: "2023-08-09T17:00:00Z"),
+                            price: 0,
+                            idCurrency: UUID(uuidString: "841f0816-0c97-4820-a3de-7cfa543b481d")!,
+                            minimumCustomers: 1,
+                            maximumCustomers: 5)
+        
+        
+        let offer6 = Offer(idRestaurant: restaurant2.id!,
+                            idState: UUID(uuidString: "01dfd76b-efad-4783-baa7-da38e6535b1c")!,
+                            title: "Todo al 50% de Descuento",
+                            image: "https://images.pexels.com/photos/5595427/pexels-photo-5595427.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                            description: "Todo al 50% de descuento excepto en bebidas.",
+                            quantityOffered: 8,
+                            startHour: Date.mapStringToDate(dateString: "2023-08-09T15:00:00Z"),
+                            endHour: Date.mapStringToDate(dateString: "2023-08-09T17:00:00Z"),
+                            price: 0,
+                            idCurrency: UUID(uuidString: "841f0816-0c97-4820-a3de-7cfa543b481d")!,
+                            minimumCustomers: 3,
+                            maximumCustomers: 8)
+        
+        let offer7 = Offer(idRestaurant: restaurant2.id!,
+                            idState: UUID(uuidString: "01dfd76b-efad-4783-baa7-da38e6535b1c")!,
+                            title: "2 por 1 Onigiri",
+                            image: "https://cdn.pixabay.com/photo/2022/10/13/17/52/onigiri-7519669_1280.jpg",
+                            description: "Más arroz, más sabor.",
+                            quantityOffered: 5,
+                            startHour: Date.mapStringToDate(dateString: "2023-08-09T15:00:00Z"),
+                            endHour: Date.mapStringToDate(dateString: "2023-08-09T17:30:00Z"),
+                            price: 0,
+                            idCurrency: UUID(uuidString: "841f0816-0c97-4820-a3de-7cfa543b481d")!,
+                            minimumCustomers: 1,
+                            maximumCustomers: 3)
+        
+        try await [offer0, offer1, offer2, offer3, offer4, offer5, offer6, offer7].create(on: database)
         
          /*
           Thread 1: Fatal error: Error raised at top level: PSQLError(
