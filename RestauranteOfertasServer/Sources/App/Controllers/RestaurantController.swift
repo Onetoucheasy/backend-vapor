@@ -16,9 +16,8 @@ struct RestaurantController : RouteCollection{
             builder.get("restaurants", ":id", use: getRestaurantById)
             builder.get("restaurants-type", ":type" , use: getRestaurantByType)
             builder.put("restaurants", ":id", use: updateRestaurant)
-            builder.get("restaurants-company", ":company", use: getRestaurantsByCompany)
+            builder.get("restaurantsCompany", ":company", use: getRestaurantsByCompany)
             builder.get("restaurantWithOffer", ":id", use: getRestaurantWithOffersByID)//restaurantWithOffersByID
-            builder.get("restaurantsWithOffer", use: getRestaurantsWithOffers)
         }
     }
     
@@ -96,7 +95,7 @@ struct RestaurantController : RouteCollection{
 //    }
     //https://docs.vapor.codes/basics/async/?h=eventloopfuture#eventloopfutures
     //Retrieve all restaurants
-    func allRestaurants(req: Request)  throws -> EventLoopFuture<Restaurant.APIResponse>{
+    func allRestaurants(req: Request)  throws -> EventLoopFuture<APIResponse<Restaurant.PublicRestaurant>>{
         return Restaurant.query(on: req.db)
             .join(Coordinates.self, on: \Restaurant.$coordinates.$id == \Coordinates.$id)
             .with(\.$coordinates)
@@ -104,13 +103,14 @@ struct RestaurantController : RouteCollection{
             .with(\.$address)
             .all()
             .map{ restaurants in
-                let apiResponse =  Restaurant.APIResponse(
-                    code: .ok,
-                    status: "success",
-                    totalResults: restaurants.count,
-                    restaurants: restaurants)
+                
+                let publicRestaurantList = RestaurantMappers.mapperFromRestaurantsToPublicRestaurantsList(restaurantsList: restaurants)
+                
+                let apiResponse =  APIResponse<Restaurant.PublicRestaurant>(items: restaurants.count,                                                                            result: publicRestaurantList)
+                
                 return apiResponse
             }
+            
     }
     
     //Retrieve a restaurant by idRestaurant
@@ -184,33 +184,24 @@ struct RestaurantController : RouteCollection{
         return restaurant
     }
     
-    // Retrieve all Restaurants with the List of Offers
-    func getRestaurantsWithOffers(req: Request) async throws -> RestResponse {
-
-        let restaurants = try await Restaurant.query(on: req.db).all()
-        
-        var rest : [Restaurant.Public] = []
-       
-        for restaurant in restaurants {
-            try await restaurant.$offers.load(on: req.db)
-            
-            rest.append(Restaurant.Public(id: restaurant.id!, idCompany: restaurant.idCompany , name: restaurant.name, picture: restaurant.picture, type: restaurant.type, address: restaurant.address, offers: restaurant.offers) )
-        }
-
-        return RestResponse(totalResults: rest.count, restaurants: rest)
-    }
        
     // Retrieve one Restaurant with the List of Offers through RestaurantID
-   func getRestaurantWithOffersByID(req: Request) async throws -> Restaurant.Public {
-       
+   func getRestaurantWithOffersByID(req: Request) async throws -> Restaurant.RestaurantWithOffers {
+
        let id = req.parameters.get("id", as: UUID.self)
-       
-       guard let restaurant = try await Restaurant.find(id, on: req.db) else {
-           throw Abort(.notFound)
-       }
-       
-       try await restaurant.$offers.load(on: req.db)
-       
-       return Restaurant.Public(id: restaurant.id!, idCompany: restaurant.idCompany, name: restaurant.name, picture: restaurant.picture, type: restaurant.type, address: restaurant.address, offers: restaurant.offers)
+       let retrievedOffers =  try await Offer.query(on: req.db)
+           .with(\.$restaurant)
+           .filter(\Offer.$restaurant.$id == id!)
+           .all()
+          
+       let offerMappedList = OfferMappers.mapperFromOffersToOfferPublicList(offersList: retrievedOffers)
+       let restaurant = retrievedOffers[0].restaurant
+
+       return Restaurant.RestaurantWithOffers(id: restaurant.id!,
+                                              name: restaurant.name,
+                                              picture: restaurant.picture,
+                                              type: restaurant.type,
+                                                    offers: offerMappedList)
    }
 }
+

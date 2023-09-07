@@ -30,23 +30,17 @@ final class Restaurant: Content, Model {
     @Field(key: "picture")
     var picture: String
     
-    @Field(key: "cif") //TODO: Are we going to request "cif"?
+    @Field(key: "cif")
     var cif: String?
     
-    @Field(key: "type") //FK?
-    var type: String //TODO: String or Enum?
-    
-//    @Field(key: "id_address") //FK
-//    var idAddress: UUID
+    @Field(key: "type")
+    var type: String
+
     @Parent(key: "id_address") //FK
     var address: Address
     
-    //TODO: I think that the parent table is restaurant
-   // @Parent(key: "id_coordinates") //FK // One Restaurant have one set of coordinates, but a set of coordiantes can be used by diferent restaurants.
     @OptionalParent(key: "id_coordinates") //FK // One Restaurant have one set of coordinates, but a set of coordiantes can be used by diferent restaurants.
     var coordinates: Coordinates?
-//    @Children(for: \.$restaurant) //FK // One Restaurant have one set of coordinates, but a set of coordiantes can be used by diferent restaurants.
-//    var coordinates: [Coordinates]
     
     @Children(for: \Offer.$restaurant)
     var offers: [Offer]
@@ -64,7 +58,6 @@ final class Restaurant: Content, Model {
     // Inits
     init() { }
     
- 
     init(id: UUID? = nil, idCompany: UUID, createdAt: Date? = nil, name: String, picture: String, cif: String? = nil, type: String, address: Address, coordinates: Coordinates, openingHour: String, closingHour: String) throws {
         self.id = id
         self.idCompany = idCompany
@@ -73,8 +66,7 @@ final class Restaurant: Content, Model {
         self.picture = picture
         self.cif = cif
         self.type = type
-        self.$address.id = try address.requireID() // coordinates.id //TODO: Check
-        //self.$coordinates.id = try coordinates.requireID()
+        self.$address.id = try address.requireID() //TODO: Check
         self.$coordinates.id = coordinates.id
         self.openingHour = openingHour
         self.closingHour = closingHour
@@ -99,7 +91,7 @@ extension Restaurant {
         let latitude: Double
         let longitude: Double
         let openingHour : String
-        let closingHour : String //The api request can not send the Date Type, it can send numer, string, bool , object, but not date
+        let closingHour : String //The request send from RapidApi can not send the Date Type, it can send numer, string, bool , object, but not date
         
         static func validations(_ validations: inout Vapor.Validations) {
             
@@ -110,7 +102,6 @@ extension Restaurant {
             validations.add("type", as: String.self, is: !.empty, required: true)
            
             //Address validations
-            //validations.add("idAddress", as: UUID.self, required: true)
             validations.add("country", as: String.self, required: true)
             validations.add("state", as: String.self, required: true)
             validations.add("city", as: String.self, required: true)
@@ -118,39 +109,33 @@ extension Restaurant {
             validations.add("address", as: String.self, required: true)
             
             //Coordinates validations
-            //validations.add("idCoordinates", as: UUID.self, required: true)
             validations.add("latitude", as: Double.self, required: true)
             validations.add("longitude", as: Double.self, required: true)
             
-            //validations.add("idSchedule", as: UUID.self, required: true)
             //TODO: Maybe the validator is String
             validations.add("openingHour", as: String.self, required: true)
             validations.add("closingHour", as: String.self, required: true)
         }
         
     }
-    
-    struct Public: Content {
-        
+       
+    struct PublicRestaurant: Content{
         let id: UUID
         let idCompany: UUID
         let name: String
-        //let cif: String?
         let picture: String
         let type: String
-       //TODO: The next id should not be shown. Do the Query and return the real values as nested Objects. 
         let address: Address
-        //let idCoordinates: UUID
-        //let adSchedule: UUID
-        let offers: [Offer]
-        
+        let coordinates: Coordinates
     }
-    //Struct to return all the restaurants with the nested values.
-    struct APIResponse: Content{
-        let code: HTTPStatus
-        let status: String
-        let totalResults: Int
-        let restaurants: [Restaurant]
+    
+    struct RestaurantWithOffers: Content{
+        let id: UUID //Restautrant ID
+        let name: String
+        let picture: String
+        let type: String
+        let offers: [Offer.Public]
     }
+    
     
 }

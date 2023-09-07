@@ -75,7 +75,8 @@ struct ModelsMigration_v0: AsyncMigration {
         try await database
             .schema(Offer.schema)
             .id()
-            .field("id_restaurant", .uuid, .required, .references(Restaurant.schema, .id)) //FK
+            //.field("id_restaurant", .uuid, .required, .references(Restaurant.schema, .id)) //FK
+            .field("id_restaurant", .uuid, .required, .references(Restaurant.schema, "id")) //FK
             .field("id_state", .uuid)
             .field("title", .string, .required)
             .field("created_date", .string)

@@ -123,7 +123,7 @@ struct PopulateInitialData: AsyncMigration{
         
         //MARK: - Offers -
         //TODO: price should be Double.
-        let offer0 = Offer(idRestaurant: restaurant0.id!,
+        let offer0 = Offer(restaurant: restaurant0,
                             idState: UUID(uuidString: "01dfd76b-efad-4783-baa7-da38e6535b1c")!,
                             title: "2 por 1 Sushi",
                             image: "https://www.camarero10.com/wp-content/uploads/2020/02/como-distribuir-un-restaurante.jpg",
@@ -136,7 +136,7 @@ struct PopulateInitialData: AsyncMigration{
                             minimumCustomers: 1,
                             maximumCustomers: 6)
         
-        let offer1 = Offer(idRestaurant: restaurant0.id!,
+        let offer1 = Offer(restaurant: restaurant0,
                             idState: UUID(uuidString: "01dfd76b-efad-4783-baa7-da38e6535b1c")!,
                             title: "3 por 1 Ramen",
                             image: "https://www.restaurantelua.com/wp-content/uploads/2020/11/01_slider_restaurante_movil.jpg",
@@ -149,7 +149,7 @@ struct PopulateInitialData: AsyncMigration{
                             minimumCustomers: 3,
                             maximumCustomers: 6)
         
-        let offer2 = Offer(idRestaurant: restaurant0.id!,
+        let offer2 = Offer(restaurant: restaurant0,
                             idState: UUID(uuidString: "01dfd76b-efad-4783-baa7-da38e6535b1c")!,
                             title: "2 por 1 Sushi",
                             image: "https://www.hotelaiguablava.com/media/restaurante/espacios/restaurante/01a-restaurante-hotel-aigua-blava.jpg",
@@ -162,7 +162,7 @@ struct PopulateInitialData: AsyncMigration{
                             minimumCustomers: 1,
                             maximumCustomers: 2)
         
-        let offer3 = Offer(idRestaurant: restaurant1.id!,
+        let offer3 = Offer(restaurant: restaurant1,
                             idState: UUID(uuidString: "01dfd76b-efad-4783-baa7-da38e6535b1c")!,
                             title: "50% dto en Sushi",
                             image: "https://images.pexels.com/photos/6249501/pexels-photo-6249501.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -175,7 +175,7 @@ struct PopulateInitialData: AsyncMigration{
                             minimumCustomers: 1,
                             maximumCustomers: 1)
         
-        let offer4 = Offer(idRestaurant: restaurant1.id!,
+        let offer4 = Offer(restaurant: restaurant1,
                             idState: UUID(uuidString: "01dfd76b-efad-4783-baa7-da38e6535b1c")!,
                             title: "Tapas a Tope",
                             image: "https://images.pexels.com/photos/14907793/pexels-photo-14907793.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -188,7 +188,7 @@ struct PopulateInitialData: AsyncMigration{
                             minimumCustomers: 1,
                             maximumCustomers: 5)
         
-        let offer5 = Offer(idRestaurant: restaurant3.id!,
+        let offer5 = Offer(restaurant: restaurant3,
                             idState: UUID(uuidString: "01dfd76b-efad-4783-baa7-da38e6535b1c")!,
                             title: "3 x 1 en pizzas",
                             image: "https://images.pexels.com/photos/12046657/pexels-photo-12046657.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -202,7 +202,7 @@ struct PopulateInitialData: AsyncMigration{
                             maximumCustomers: 5)
         
         
-        let offer6 = Offer(idRestaurant: restaurant2.id!,
+        let offer6 = Offer(restaurant: restaurant2,
                             idState: UUID(uuidString: "01dfd76b-efad-4783-baa7-da38e6535b1c")!,
                             title: "Todo al 50% de Descuento",
                             image: "https://images.pexels.com/photos/5595427/pexels-photo-5595427.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -215,7 +215,7 @@ struct PopulateInitialData: AsyncMigration{
                             minimumCustomers: 3,
                             maximumCustomers: 8)
         
-        let offer7 = Offer(idRestaurant: restaurant2.id!,
+        let offer7 = Offer(restaurant: restaurant2,
                             idState: UUID(uuidString: "01dfd76b-efad-4783-baa7-da38e6535b1c")!,
                             title: "2 por 1 Onigiri",
                             image: "https://cdn.pixabay.com/photo/2022/10/13/17/52/onigiri-7519669_1280.jpg",

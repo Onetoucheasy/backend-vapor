@@ -16,6 +16,8 @@ struct OfferController : RouteCollection{
             builder.get("offers", use: allOffers)
             builder.get("offers", ":id", use: getOfferById)
             //builder.get("offers-with-restaurants", use: getAllOffersWithRestaurantsData)
+            builder.get("restaurantsWithOffer", use: getOffersGroupedByRestaurantID)
+
         }
     }
     
@@ -30,5 +32,39 @@ struct OfferController : RouteCollection{
             throw Abort(.notFound)
         }
         return offer
-    }    
+    }
+    
+    // Retrieve all offers grouped by restaurant id
+    func getOffersGroupedByRestaurantID(req: Request)  throws -> EventLoopFuture<APIResponse<Restaurant.RestaurantWithOffers>>{
+      
+       return Offer.query(on: req.db)
+            .with(\.$restaurant)
+            .all()
+            .flatMap{ offers in
+                let groupedOffers = Dictionary(grouping: offers) { offer in
+                    offer.restaurant.id!.uuidString //TODO: check if works without uuidString
+                }
+                var result : [Restaurant.RestaurantWithOffers] = []
+                
+                for(restaurantID, restaurantOffers) in groupedOffers{
+                    if let firstOffer = restaurantOffers.first{
+                        
+                        let OfferPublicList = OfferMappers.mapperFromOffersToOfferPublicList(offersList: restaurantOffers)
+                        
+                        let restaurantWithOffers = Restaurant.RestaurantWithOffers(
+                            id: firstOffer.restaurant.id!,
+                            name: firstOffer.restaurant.name,
+                            picture: firstOffer.restaurant.picture,
+                            type: firstOffer.restaurant.type,
+                            offers: OfferPublicList)
+                        
+                        result.append(restaurantWithOffers)
+                    }
+                }
+                let apiResponse = APIResponse<Restaurant.RestaurantWithOffers>(items: result.count, result: result)
+                return req.eventLoop.makeSucceededFuture(apiResponse)
+            }
+        
+    }
+    
 }

@@ -17,8 +17,11 @@ final class Offer: Content, Model {
     @ID(key: .id) //PK
     var id: UUID?
     
-    @Field(key: "id_restaurant") //FK
-    var idRestaurant: UUID
+    @Parent(key: "id_restaurant")
+    var restaurant: Restaurant
+    
+//    @Field(key: "id_restaurant") //FK
+//    var idRestaurant: UUID
 
     @Field(key: "id_state") //TODO FK
     var idState: UUID
@@ -26,13 +29,13 @@ final class Offer: Content, Model {
     @Field(key: "title")
     var title: String
     
-    @Timestamp(key: "created_date", on: .none, format: .iso8601)
+    @Timestamp(key: "created_date", on: .create, format: .iso8601)
     var createdDate: Date?
     
-    @Timestamp(key: "start_hour", on: .none, format: .iso8601)
+    @Timestamp(key: "start_hour", on: .none, format: .iso8601) //TODO: @Date?
     var startHour: Date?
     
-    @Timestamp(key: "end_hour", on: .none, format: .iso8601)
+    @Timestamp(key: "end_hour", on: .none, format: .iso8601) //TODO: @Date?
     var endHour: Date?
     
     @Field(key: "image")
@@ -56,15 +59,15 @@ final class Offer: Content, Model {
     @Field(key: "maximum_customers")
     var maximumCustomers: Int
     
-    @Parent(key: "restaurant")
-    var restaurant: Restaurant
+    
     
     // Inits
     init() { }
     
-    internal init(id: UUID? = nil, idRestaurant: UUID, idState: UUID , title: String, image: String, description: String, quantityOffered: Int, startHour: Date, endHour: Date, price: Int, idCurrency: UUID,minimumCustomers: Int,maximumCustomers: Int) {
+    internal init(id: UUID? = nil, restaurant: Restaurant, idState: UUID , title: String, image: String, description: String, quantityOffered: Int, startHour: Date, endHour: Date, price: Int, idCurrency: UUID,minimumCustomers: Int,maximumCustomers: Int) {
         self.id = id
-        self.idRestaurant = idRestaurant
+        //self.idRestaurant = idRestaurant
+        self.$restaurant.id = restaurant.id!
         self.idState = idState
         self.title = title
        // self.createdDate = createdDate
@@ -120,12 +123,12 @@ extension Offer {
         let id: UUID
         let idRestaurant: UUID
         let title: String
-        let image: String
+        let image: String?
         let description: String
         let quantityOffered: Int
-        let createdDate: Date
-        let startHour: Date
-        let endHour: Date
+        let createdDate: Date?
+        let startHour: Date?
+        let endHour: Date?
         let price: Int
         let idCurrency: UUID
         let minimumCustomers: Int
