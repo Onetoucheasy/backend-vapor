@@ -7,79 +7,86 @@
 
 import Vapor
 import JWT
-// L2, 0.59.00
+
+/// Enum that contains the posible JWT types.
 enum JWTTokenType: String, Codable {
     case accesToken
     case refreshToken
 }
-// L2, 1.00.00 // https://docs.vapor.codes/security/jwt/#jwt
-struct JWTToken: Content, JWTPayload, Authenticatable { // L2, 2.08.42 - Authenticatable
+
+///The JWTToken model represents a JWTToken in the database context.
+struct JWTToken: Content, JWTPayload, Authenticatable {
     
     // MARK: - Properties
-    var exp: ExpirationClaim // https://datatracker.ietf.org/doc/rfc7519/
+    
+    var exp: ExpirationClaim
     var iss: IssuerClaim
     var sub: SubjectClaim
     var type: JWTTokenType
-    var userType: String 
+    var userType: String
     
-    // JWT verification // This is used to interrogate a user's JWT
+    /// JWT verification.  It is used to interrogate a user's JWT.
     func verify(using signer: JWTKit.JWTSigner) throws {
         
-        // Expired
+        /// Expired.
         try exp.verifyNotExpired()
         
-        // Validate bundle id // L2, 1.11.00
+        /// Validate bundle id.
         guard iss.value == Environment.process.APP_BUNDLE_ID else {
             throw JWTError.claimVerificationFailure(name: "iss", reason: "Issuer is invalid")
         }
         
-        // Validate subject
+        /// Validate subject.
         guard let _ = UUID(sub.value) else {
             throw JWTError.claimVerificationFailure(name: "sub", reason: "Subject is invalid")
         }
         
-        // Validate JWT type // L2, 1.13.30
+        /// Validate JWT type.
         guard type == .accesToken || type == .refreshToken else {
             throw JWTError.claimVerificationFailure(name: "type", reason: "Type is invalid")
         }
-       
+        
+        /// Validate JWT user type.
         guard userType == UserType.admin.rawValue ||
-        userType == UserType.company.rawValue ||
-        userType == UserType.customer.rawValue else {
+                userType == UserType.company.rawValue ||
+                userType == UserType.customer.rawValue else {
             throw JWTError.claimVerificationFailure(name: "userType", reason: "Unknown user type")
         }
     }
 }
 
 // MARK: - DTOs
-extension JWTToken { // L2, 1.15.10
+extension JWTToken {
     
+    /// Data structure used to generate the object that will be sent to the FrontEnd.
     struct Public: Content {
-        
         let accessToken: String
         let refreshToken: String
     }
 }
 
 // MARK: - Auxiliar
-extension JWTToken { // L2, 1.16.20
+extension JWTToken {
     
+    /// Method that generates the custom JWTs. The customization is based un userID and userType.
+    /// - Parameters:
+    ///   - userID: UUID related to the user.
+    ///   - userType: User type. Which restrics some functionalities dependiend on its value.
+    /// - Returns: The customized JWTs (accessToken and refreshToken).
     static func generateTokens(userID: UUID, userType: String) -> (accessToken: JWTToken, refreshToken: JWTToken) {
-     
+        
         let iss = Environment.process.APP_BUNDLE_ID!
         let sub = userID.uuidString
         let currentDate = Date()
-      //  let isCompany: String //TODO: probably not necesary in here, as we donot modify the value
         
-        // Acces token
-        var expDate = currentDate.addingTimeInterval(Constants.accessTokenLifetime)
+        /// Acces token generation.
+        var expDate = currentDate.addingTimeInterval(Constants.accessTokenLifeTime)
         let access = JWTToken(exp: .init(value: expDate), iss: .init(value: iss), sub: .init(value: sub), type: .accesToken, userType: userType)
         
-        // Refresh token
+        /// Refresh token generation.
         expDate = currentDate.addingTimeInterval(Constants.refreshTokenLifeTime)
         let refresh = JWTToken(exp: .init(value: expDate), iss: .init(value: iss), sub: .init(value: sub), type: .refreshToken, userType: userType)
         
         return (access, refresh)
     }
-    
 }

@@ -7,286 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F78DBBC3-3029-4020-B8B4-CF2B91A0549D"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Sources/App/Controllers/RestaurantController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "RestaurantController"
-            landmarkType = "14">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "9BF59894-B331-4556-AD35-1E00E3961DA8"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Sources/App/Controllers/RestaurantController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "RestaurantController"
-            landmarkType = "14">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1A8A38C4-2497-4C5B-B85B-86CBA513713A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Sources/App/Controllers/RestaurantController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "RestaurantController"
-            landmarkType = "14">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "386A4F1C-3AE7-4501-A445-E206AEE182AE"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Sources/App/Controllers/RestaurantController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "RestaurantController"
-            landmarkType = "14">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "157FA513-E24D-4A56-802C-19C98522FFA5"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Sources/App/Controllers/RestaurantController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "addRestaurant(req:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "157FA513-E24D-4A56-802C-19C98522FFA5 - 3ad8564455643aa3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(5) suspend resume partial function for App.RestaurantController.addRestaurant(req: Vapor.Request) async throws -&gt; NIOHTTP1.HTTPResponseStatus"
-                  moduleName = "App"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alberto/Desktop/backend-vapor/RestauranteOfertasServer/Sources/App/Controllers/RestaurantController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "87"
-                  endingLineNumber = "87"
-                  offsetFromSymbolStart = "612">
-               </Location>
-               <Location
-                  uuid = "157FA513-E24D-4A56-802C-19C98522FFA5 - ef187f607909bcb8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(6) await resume partial function for App.RestaurantController.addRestaurant(req: Vapor.Request) async throws -&gt; NIOHTTP1.HTTPResponseStatus"
-                  moduleName = "App"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alberto/Desktop/backend-vapor/RestauranteOfertasServer/Sources/App/Controllers/RestaurantController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "87"
-                  endingLineNumber = "87"
-                  offsetFromSymbolStart = "36">
-               </Location>
-               <Location
-                  uuid = "157FA513-E24D-4A56-802C-19C98522FFA5 - 920620fb4c3cfea1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(7) suspend resume partial function for App.RestaurantController.addRestaurant(req: Vapor.Request) async throws -&gt; NIOHTTP1.HTTPResponseStatus"
-                  moduleName = "App"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alberto/Desktop/backend-vapor/RestauranteOfertasServer/Sources/App/Controllers/RestaurantController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "87"
-                  endingLineNumber = "87"
-                  offsetFromSymbolStart = "124">
-               </Location>
-               <Location
-                  uuid = "157FA513-E24D-4A56-802C-19C98522FFA5 - a4784486d9bbd957"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(10) suspend resume partial function for App.RestaurantController.addRestaurant(req: Vapor.Request) async throws -&gt; NIOHTTP1.HTTPResponseStatus"
-                  moduleName = "App"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alberto/Desktop/backend-vapor/RestauranteOfertasServer/Sources/App/Controllers/RestaurantController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "87"
-                  endingLineNumber = "87"
-                  offsetFromSymbolStart = "84">
-               </Location>
-               <Location
-                  uuid = "157FA513-E24D-4A56-802C-19C98522FFA5 - 3ad8564455643aa3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(5) suspend resume partial function for App.RestaurantController.addRestaurant(req: Vapor.Request) async throws -&gt; NIOHTTP1.HTTPResponseStatus"
-                  moduleName = "App"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alberto/Desktop/backend-vapor/RestauranteOfertasServer/Sources/App/Controllers/RestaurantController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "87"
-                  endingLineNumber = "87"
-                  offsetFromSymbolStart = "664">
-               </Location>
-               <Location
-                  uuid = "157FA513-E24D-4A56-802C-19C98522FFA5 - 3ad8564455643ac2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(5) suspend resume partial function for App.RestaurantController.addRestaurant(req: Vapor.Request) async throws -&gt; NIOHTTP1.HTTPResponseStatus"
-                  moduleName = "App"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alberto/Desktop/backend-vapor/RestauranteOfertasServer/Sources/App/Controllers/RestaurantController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "86"
-                  endingLineNumber = "86"
-                  offsetFromSymbolStart = "664">
-               </Location>
-               <Location
-                  uuid = "157FA513-E24D-4A56-802C-19C98522FFA5 - ef187f607909bcd9"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(6) await resume partial function for App.RestaurantController.addRestaurant(req: Vapor.Request) async throws -&gt; NIOHTTP1.HTTPResponseStatus"
-                  moduleName = "App"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alberto/Desktop/backend-vapor/RestauranteOfertasServer/Sources/App/Controllers/RestaurantController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "86"
-                  endingLineNumber = "86"
-                  offsetFromSymbolStart = "36">
-               </Location>
-               <Location
-                  uuid = "157FA513-E24D-4A56-802C-19C98522FFA5 - 920620fb4c3cfec0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(7) suspend resume partial function for App.RestaurantController.addRestaurant(req: Vapor.Request) async throws -&gt; NIOHTTP1.HTTPResponseStatus"
-                  moduleName = "App"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alberto/Desktop/backend-vapor/RestauranteOfertasServer/Sources/App/Controllers/RestaurantController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "86"
-                  endingLineNumber = "86"
-                  offsetFromSymbolStart = "124">
-               </Location>
-               <Location
-                  uuid = "157FA513-E24D-4A56-802C-19C98522FFA5 - a4784486d9bbd936"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(10) suspend resume partial function for App.RestaurantController.addRestaurant(req: Vapor.Request) async throws -&gt; NIOHTTP1.HTTPResponseStatus"
-                  moduleName = "App"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alberto/Desktop/backend-vapor/RestauranteOfertasServer/Sources/App/Controllers/RestaurantController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "86"
-                  endingLineNumber = "86"
-                  offsetFromSymbolStart = "84">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1EEAE3F9-F11F-4174-AF50-D8DAC5920248"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Sources/App/Controllers/RestaurantController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "addRestaurant(req:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "1EEAE3F9-F11F-4174-AF50-D8DAC5920248 - 3ad8564455643ae1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(5) suspend resume partial function for App.RestaurantController.addRestaurant(req: Vapor.Request) async throws -&gt; NIOHTTP1.HTTPResponseStatus"
-                  moduleName = "App"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alberto/Desktop/backend-vapor/RestauranteOfertasServer/Sources/App/Controllers/RestaurantController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "85"
-                  endingLineNumber = "85"
-                  offsetFromSymbolStart = "192">
-               </Location>
-               <Location
-                  uuid = "1EEAE3F9-F11F-4174-AF50-D8DAC5920248 - 3ad8564455643ae1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(5) suspend resume partial function for App.RestaurantController.addRestaurant(req: Vapor.Request) async throws -&gt; NIOHTTP1.HTTPResponseStatus"
-                  moduleName = "App"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alberto/Desktop/backend-vapor/RestauranteOfertasServer/Sources/App/Controllers/RestaurantController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "85"
-                  endingLineNumber = "85"
-                  offsetFromSymbolStart = "196">
-               </Location>
-               <Location
-                  uuid = "1EEAE3F9-F11F-4174-AF50-D8DAC5920248 - 3ad8564455643a00"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(5) suspend resume partial function for App.RestaurantController.addRestaurant(req: Vapor.Request) async throws -&gt; NIOHTTP1.HTTPResponseStatus"
-                  moduleName = "App"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alberto/Desktop/backend-vapor/RestauranteOfertasServer/Sources/App/Controllers/RestaurantController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "84"
-                  endingLineNumber = "84"
-                  offsetFromSymbolStart = "196">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "30111687-94B2-4E56-B957-F4829F73E494"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -336,10 +56,72 @@
             filePath = "Sources/App/Controllers/RestaurantController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
             landmarkName = "getRestaurantsByCompany(req:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "30054406-996B-4D5E-A035-01A0244133FB - 7defce6e043351ce"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for App.RestaurantController.getRestaurantById(req: Vapor.Request) async throws -&gt; App.Restaurant"
+                  moduleName = "App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alberto/Desktop/backend-vapor/RestauranteOfertasServer/Sources/App/Controllers/RestaurantController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "118"
+                  endingLineNumber = "118"
+                  offsetFromSymbolStart = "256">
+               </Location>
+               <Location
+                  uuid = "30054406-996B-4D5E-A035-01A0244133FB - cbb565a34729c4e7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for App.RestaurantController.getRestaurantById(req: Vapor.Request) async throws -&gt; App.Restaurant"
+                  moduleName = "App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alberto/Desktop/backend-vapor/RestauranteOfertasServer/Sources/App/Controllers/RestaurantController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "118"
+                  endingLineNumber = "118"
+                  offsetFromSymbolStart = "48">
+               </Location>
+               <Location
+                  uuid = "30054406-996B-4D5E-A035-01A0244133FB - 3074efce5311d0c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for App.RestaurantController.getRestaurantById(req: Vapor.Request) async throws -&gt; App.Restaurant"
+                  moduleName = "App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alberto/Desktop/backend-vapor/RestauranteOfertasServer/Sources/App/Controllers/RestaurantController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "118"
+                  endingLineNumber = "118"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  uuid = "30054406-996B-4D5E-A035-01A0244133FB - abd089341ab03b2d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for App.RestaurantController.getRestaurantById(req: Vapor.Request) async throws -&gt; App.Restaurant"
+                  moduleName = "App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alberto/Desktop/backend-vapor/RestauranteOfertasServer/Sources/App/Controllers/RestaurantController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "118"
+                  endingLineNumber = "118"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

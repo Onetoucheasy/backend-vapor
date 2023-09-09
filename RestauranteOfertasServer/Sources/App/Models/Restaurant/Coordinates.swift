@@ -7,74 +7,67 @@
 
 import Vapor
 import Fluent
-import CoreLocation //TODO: Delete? Keep coordiantes as double?
 
+///The Coordinates model represents a coordinate in the database context.
 final class Coordinates: Model{
-  
-    //Scheme
+    
+    ///Scheme
     static var schema = "coordinates"
     
-    //Properties
-    @ID(key: .id) //PK
+    //MARK: - Properties
+    
+    /// Coordinates identifier. PK.
+    @ID(key: .id)
     var id: UUID?
     
-    //@Parent(key: "id_restaurant") //PK & FK
-    @Children(for: \Restaurant.$coordinates) //PK & FK
+    /// The id of the restaurant related to the coordinates. Represents a relationship to the coordinates associated with a restaurant.
+    @Children(for: \Restaurant.$coordinates)
     var restaurant: [Restaurant]
     
+    /// Latitude.
     @Field(key: "latitude")
     var latitude: Double
     
+    /// Longitude.
     @Field(key: "longitude")
     var longitude: Double
     
-    //Inits:
+    //MARK: - Inits.
+    
+    /// Empty initializer.
     init(){}
     
-   // internal init(id: UUID? = nil, idRestaurant: Restaurant, latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
+    /// Parameterized initializer.
     init(id: UUID? = nil, latitude: Double, longitude: Double) throws {
-   // internal init(id: UUID? = nil, restaurant: Restaurant, latitude: String, longitude: String) throws{
         self.id = id
-//        self.$restaurant.id = try restaurant.requireID() //idRestaurant.id!//(idRestaurant?.id!)!
-       // self.$restaurant. = restaurant.id ?? UUID(uuidString: "ok55qweq4eqe")!
-        //TODO: I think that the initializer should not have 
         self.latitude = latitude
         self.longitude = longitude
     }
 }
 
- //MARK: - DTOs -
+//MARK: - DTOs -
 
 extension Coordinates{
     
+    /// Data structure used for the creation of coordiantes in the database.
     struct Create: Content, Validatable {
-        //let idRestaurant: UUID
-//        let latitude: CLLocationDegrees
-//        let longitude: CLLocationDegrees
-//        let latitude: Double
-//        let longitude: Double
-        
+        //TODO: Fix the problem related with the double properties in the body of the request.
         let latitude: String
         let longitude: String
         
+        /// Method that validates the data types of the parameters sent in the body of the request.
+        /// - Parameter validations: Elements to validate.
         static func validations(_ validations: inout Vapor.Validations) {
-            //validations.add("idRestaurant", as: UUID.self, required: true)
-//            validations.add("latitude", as: Double.self, required: true)
-//            validations.add("longitude", as: Double.self, required: true)
-            
             validations.add("latitude", as: String.self, required: true)
             validations.add("longitude", as: String.self, required: true)
-
         }
     }
     
+    /// Data structure used to generate the object that will be sent to the FrontEnd.
     struct Public {
+        //TODO: Fix the problem related with the double properties in the body of the request.
         let id: UUID
         let idRestaurant: UUID
-//        let latitude: CLLocationDegrees
-//        let longitude: CLLocationDegrees
-//        let latitude: Double
-//        let longitude: Double
         let latitude: String
         let longitude: String
     }

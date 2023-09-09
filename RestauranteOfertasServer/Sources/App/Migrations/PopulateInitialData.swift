@@ -8,29 +8,33 @@
 import Vapor
 import Fluent
 
+/// Struct that provides the methods to preload the database tables with data.
 struct PopulateInitialData: AsyncMigration{
+   
+    
+    /// Method called after the migration that fill the tables with data.
+    /// - Parameter database: The database.
     func prepare(on database: FluentKit.Database) async throws {
         //MARK: - Users -
-        //Company Users
+        ///Company Users
         let user0 = User(name: "Maria", email: "maria@prueba.com", password: try Bcrypt.hash("password0"), userType: UserType.company)
 
         let user1 = User(name: "Jose", email: "jose@prueba.com", password: try Bcrypt.hash("password1"), userType: UserType.company)
 
         let user2 = User(name: "Rafael", email: "rafael@prueba.com", password: try Bcrypt.hash("password2"), userType: UserType.company)
         
-        //Customer Users
+        ///Customer Users
         let user3 = User(name: "Mario", email: "mario@prueba.com", password: try Bcrypt.hash("password3"), userType: UserType.customer)
         
         let user4 = User(name: "Elena", email: "elena@prueba.com", password: try Bcrypt.hash("password4"), userType: UserType.customer)
         
         let user5 = User(name: "Rafael", email: "rafael@prueba.com", password: try Bcrypt.hash("password5"), userType: UserType.customer)
         
-        //Add to the database
+        ///Add to the database
         try await [user0, user1, user2, user3, user4, user5].create(on: database)
         
-        // Load restaurants (need access tokens
         
-        /* 
+        /**
          Manual steps using RapidApi & TablePlus
          1. Run user script
          2. Using RapidApi, sign in using user0: Header: HTTP Basic Auth email & password
@@ -39,10 +43,11 @@ struct PopulateInitialData: AsyncMigration{
          5. TablePlus > "users" table > "Maria" record > copy "id" UUID value
          6. PASTE into: RapidAPI > "Create Restaurant" request > Body > "idCompany"
          7. Run requests > 200 OK
-      */
+      **/
         
         //MARK: - Coordinates -
         
+        ///Coordiantes.
         let coordinates1: Coordinates = try Coordinates(latitude: 40.3, longitude: -3.4)
         let coordinates2: Coordinates = try Coordinates(latitude: 40.2, longitude: -3.3)
         let coordinates3: Coordinates = try Coordinates(latitude: 40.0, longitude: -3.1)
@@ -52,7 +57,7 @@ struct PopulateInitialData: AsyncMigration{
         try await [coordinates1, coordinates2, coordinates3, coordinates4, coordinates5].create(on: database)
         
         //MARK: - Adrresses -
-        
+        ///Addresses.
         let address0 = Address(country: "Spain", state: "Comunidad de Madrid", city: "Móstoles", zipCode: "28661", address: "Calle Desengaño nº 21")
         let address1 = Address(country: "Spain", state: "Comunidad de Madrid", city: "Alcorcón", zipCode: "28634", address: "Avenida de Europa nº 32")
         let address2 = Address(country: "Spain", state: "Comunidad de Madrid", city: "Brunete", zipCode: "28345", address: "Calle Libro nº 1")
@@ -62,7 +67,7 @@ struct PopulateInitialData: AsyncMigration{
         try await [address0, address1, address2, address3, address4].create(on: database)
         
         //MARK: - Restaurants -
-        
+        ///Restaurants.
         let restaurant0 = try Restaurant(
             idCompany: user0.id!,
             name: "Shushi Bar",
@@ -123,6 +128,7 @@ struct PopulateInitialData: AsyncMigration{
         
         //MARK: - Offers -
         //TODO: price should be Double.
+        ///Offers.
         let offer0 = Offer(restaurant: restaurant0,
                             idState: UUID(uuidString: "01dfd76b-efad-4783-baa7-da38e6535b1c")!,
                             title: "2 por 1 Sushi",
@@ -248,8 +254,14 @@ struct PopulateInitialData: AsyncMigration{
           */
     }
     
+    /// Method that revert the populate data migration in case that something went wrong.
+    /// - Parameter database:The dsatabase.
     func revert(on database: Database) async throws{
         try await User.query(on: database).delete()
+        try await Coordinates.query(on: database).delete()
+        try await Address.query(on: database).delete()
+        try await Restaurant.query(on: database).delete()
+        try await Offer.query(on: database).delete()
     }
     
 }

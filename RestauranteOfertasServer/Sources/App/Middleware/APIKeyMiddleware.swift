@@ -4,19 +4,18 @@
 //
 //  Created by Eric Olsson on 7/31/23.
 //
-// L2, 0.07.10 https://docs.vapor.codes/advanced/middleware/#middleware
 import Vapor
 
+/// Class that ensures that the request has a valid APIKey.
 final class APIKeyMiddleware: AsyncMiddleware {
     
     func respond(to request: Vapor.Request, chainingTo next: Vapor.AsyncResponder) async throws -> Vapor.Response {
         
-        guard let apiKey = request.headers.first(name: "CDS-ApiKey") else { // L2, 0.13.20
+        guard let apiKey = request.headers.first(name: "CDS-ApiKey") else {
             throw Abort(.badRequest, reason: "CDS-APiKey header is missing")
         }
 
-        print(apiKey) // Test print works
-        guard let envApiKey = Environment.process.API_KEY else { // L2, 0.22.20
+        guard let envApiKey = Environment.process.API_KEY else {
             throw Abort(.failedDependency)
         }
 
@@ -25,7 +24,5 @@ final class APIKeyMiddleware: AsyncMiddleware {
         }
         
         return try await next.respond(to: request)
-        
     }
-
 }

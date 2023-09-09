@@ -6,11 +6,10 @@
 //
 
 import Vapor
-// L1 2.22.00~ Docs: https://docs.vapor.codes/basics/content/#content-struct
+
+///The Version model represents an Version in the database context.
 struct Version: Content {
-    
     let current: String
     let live: String
     let needsUpdate: Bool
-    
 }

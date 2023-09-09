@@ -7,15 +7,11 @@
 
 import Vapor
 import Fluent
-import CoreLocation
 
-//Struct to return all the restaurants with the nested values.
 //TODO: Add pagination in the future.
 
+/// APIResponse is a generic model that represents how the data lists will be sent to the FrontEnd.
 struct APIResponse<T: Content>: Content{
-
     let items: Int
     let result: [T]
 }
-   
-

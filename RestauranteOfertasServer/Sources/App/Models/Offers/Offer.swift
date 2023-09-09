@@ -8,69 +8,81 @@
 import Vapor
 import Fluent
 
+///The Offer model represents an Offer in the database context.
 final class Offer: Content, Model {
     
-    //Scheme
+    ///Scheme
     static var schema = "offers"
     
-    //Properties
+    //MARK: - Properties.
+    
+    ///Offer identifier. PK.
     @ID(key: .id) //PK
     var id: UUID?
     
+    /// FK: The id of the restaurant that created the offer.
     @Parent(key: "id_restaurant")
     var restaurant: Restaurant
     
-//    @Field(key: "id_restaurant") //FK
-//    var idRestaurant: UUID
-
-    @Field(key: "id_state") //TODO FK
+    ///FK: The id of the offer's state.
+    @Field(key: "id_state") //TODO: Create the states table.
     var idState: UUID
     
+    ///Offer's title.
     @Field(key: "title")
     var title: String
     
+    /// Timestamp that store the offer's creation complete date.
     @Timestamp(key: "created_date", on: .create, format: .iso8601)
     var createdDate: Date?
     
-    @Timestamp(key: "start_hour", on: .none, format: .iso8601) //TODO: @Date?
+    /// Time in which the offer starts.
+    @Timestamp(key: "start_hour", on: .none, format: .iso8601) //TODO: @Date
     var startHour: Date?
     
-    @Timestamp(key: "end_hour", on: .none, format: .iso8601) //TODO: @Date?
+    /// Time in which the offer ends.
+    @Timestamp(key: "end_hour", on: .none, format: .iso8601) //TODO: @Date
     var endHour: Date?
     
+    /// Promotial image related to the offer.
     @Field(key: "image")
     var image: String?
     
+    /// The description of the offer.
     @Field(key: "description")
     var description: String
     
+    /// The quantity of offered offers.
     @Field(key: "quantity_offered")
     var quantityOffered: Int
     
+    /// Price. Some offers can have a fixed price.
     @Field(key: "price")
     var price: Int
     
+    /// The currency in which the price is set.
     @Field(key: "id_currency") //TODO FK
     var idCurrency: UUID
     
+    /// Minimum number of costumers needed per offer in order to the user to be able to redeem the offer.
     @Field(key: "minimum_customers")
     var minimumCustomers: Int
     
+    /// Maximum number of costumers needed per offer in order to the user to be able to redeem the offer.
     @Field(key: "maximum_customers")
     var maximumCustomers: Int
     
     
-    
-    // Inits
+    //MARK: - Inits
+    /// Empty initializer.
     init() { }
     
-    internal init(id: UUID? = nil, restaurant: Restaurant, idState: UUID , title: String, image: String, description: String, quantityOffered: Int, startHour: Date, endHour: Date, price: Int, idCurrency: UUID,minimumCustomers: Int,maximumCustomers: Int) {
+    /// Parameterized initializer.
+    init(id: UUID? = nil, restaurant: Restaurant, idState: UUID , title: String, image: String, description: String, quantityOffered: Int, startHour: Date, endHour: Date, price: Int, idCurrency: UUID,minimumCustomers: Int,maximumCustomers: Int) {
         self.id = id
-        //self.idRestaurant = idRestaurant
         self.$restaurant.id = restaurant.id!
         self.idState = idState
         self.title = title
-       // self.createdDate = createdDate
         self.image = image
         self.description = description
         self.quantityOffered = quantityOffered
@@ -80,14 +92,14 @@ final class Offer: Content, Model {
         self.idCurrency = idCurrency
         self.minimumCustomers = minimumCustomers
         self.maximumCustomers =  maximumCustomers
-        //self.$restaurant.id = idRestaurant
     }
 }
 // MARK: - DTOs -
 extension Offer {
     
+    /// Data structure used for the creation of offers in the database.
     struct Create: Content, Validatable {
-    
+        
         let idRestaurant: UUID
         let idState: UUID
         let title: String
@@ -101,6 +113,8 @@ extension Offer {
         let minimumCustomers: Int
         let maximumCustomers: Int
         
+        /// Method that validates the data types of the parameters sent in the body of the request.
+        /// - Parameter validations: Elements to validate.
         static func validations(_ validations: inout Vapor.Validations) {
             
             validations.add("idRestaurant", as: UUID.self, required: true)
@@ -118,6 +132,7 @@ extension Offer {
         }
     }
     
+    /// Data structure used to generate the object that will be sent to the FrontEnd.
     struct Public: Content {
         
         let id: UUID
