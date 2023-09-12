@@ -5,12 +5,20 @@ func routes(_ app: Application) throws {
     
     try app.group("api") { builder in
         
-        try builder.group(APIKeyMiddleware()) { builder in // L1, 3.08.10, L2 0.16.00. Traffic must pass through middleware
+        ///Traffic must pass through middleware
+        try builder.group(APIKeyMiddleware()) { builder in
             
-            try builder.register(collection: VersioningController()) // L1, 2.32.00~ first run
-            try builder.register(collection: AuthController()) // L1, 3.38.30
+            /// Registration of the versioning controller.
+            try builder.register(collection: VersioningController())
             
+            /// Registration of the authentication controller.
+            try builder.register(collection: AuthController())
+            
+            /// Registration of the restaurants controller.
+            try builder.register(collection: RestaurantController())
+            
+            /// Registration of the offers controller.
+            try builder.register(collection: OfferController())
         }
-        
     }
 }
