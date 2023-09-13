@@ -1,0 +1,139 @@
+GET /api/version?current=1.1.0 HTTP/1.1
+CDS-ApiKey: uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5
+Host: 127.0.0.1:8080
+Connection: close
+User-Agent: RapidAPI/4.2.0 (Macintosh; OS X/13.4.1) GCDHTTPRequest
+
+
+
+POST /api/auth/signUp HTTP/1.1
+CDS-ApiKey: uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5
+Content-Type: application/json; charset=utf-8
+Host: 127.0.0.1:8080
+Connection: close
+User-Agent: RapidAPI/4.2.0 (Macintosh; OS X/13.4.1) GCDHTTPRequest
+Content-Length: 79
+
+{"name":"Goku","email":"gokuSL@gmail.com","password":"123456","type":"company"}
+
+GET /api/auth/signIn HTTP/1.1
+CDS-ApiKey: uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5
+Authorization: Basic Z29rdVNMQGdtYWlsLmNvbToxMjM0NTY=
+Content-Type: application/json; charset=utf-8
+Host: 127.0.0.1:8080
+Connection: close
+User-Agent: RapidAPI/4.2.0 (Macintosh; OS X/13.4.1) GCDHTTPRequest
+
+
+
+GET /api/auth/refresh HTTP/1.1
+CDS-ApiKey: uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTUyMjQ2NzguMjk4MTI1LCJpc3MiOiJPbmV0b3VjaGVhc3kuUmVzdGF1cmFudGVPZmVydGFzIiwidHlwZSI6InJlZnJlc2hUb2tlbiIsInN1YiI6IjMyQ0JDOEMzLUJCNDMtNEYzQy1CQUNELTdDMUZGMTZFNTk0MSIsInVzZXJUeXBlIjoiY29tcGFueSJ9.Tp6g83yjPm8VaCFJCAZU_ApVVpA4-G_YrLTP9H6aRFM
+Host: 127.0.0.1:8080
+Connection: close
+User-Agent: RapidAPI/4.2.0 (Macintosh; OS X/13.4.1) GCDHTTPRequest
+
+
+
+POST /api/addRestaurant HTTP/1.1
+CDS-ApiKey: uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQ2MjE2NzguMjk4MTI1LCJpc3MiOiJPbmV0b3VjaGVhc3kuUmVzdGF1cmFudGVPZmVydGFzIiwidHlwZSI6ImFjY2VzVG9rZW4iLCJzdWIiOiIzMkNCQzhDMy1CQjQzLTRGM0MtQkFDRC03QzFGRjE2RTU5NDEiLCJ1c2VyVHlwZSI6ImNvbXBhbnkifQ.srR6m3ZZApoJSnNDKaThN83xh7vG77VjpcaKrObVO6U
+Content-Type: application/json; charset=utf-8
+Host: 127.0.0.1:8080
+Connection: close
+User-Agent: RapidAPI/4.2.0 (Macintosh; OS X/13.4.1) GCDHTTPRequest
+Content-Length: 480
+
+{"idCompany":"04b7697b-b445-42fd-bada-b6a8d2911705","name":"Goku restaurant","picture":"https://images.pexels.com/photos/6192571/pexels-photo-6192571.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1","type":"Japon\u00e9s","country":"Espa\u00f1a","state":"Comunidad de Madrid","city":"Madrid","zipCode":"28665","address":"Calle desenga\u00f1o n\u00ba 21","latitude":50.419882311984954,"longitude":-5.705750367464624,"openingHour":"8:32","closingHour":"23:31","cif":"000-0000-000"}
+
+PUT /api/restaurants/06dd3bd3-5c4e-46b4-bff5-536ba2e1f17e HTTP/1.1
+CDS-ApiKey: uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQ2MjE2NzguMjk4MTI1LCJpc3MiOiJPbmV0b3VjaGVhc3kuUmVzdGF1cmFudGVPZmVydGFzIiwidHlwZSI6ImFjY2VzVG9rZW4iLCJzdWIiOiIzMkNCQzhDMy1CQjQzLTRGM0MtQkFDRC03QzFGRjE2RTU5NDEiLCJ1c2VyVHlwZSI6ImNvbXBhbnkifQ.srR6m3ZZApoJSnNDKaThN83xh7vG77VjpcaKrObVO6U
+Content-Type: application/json; charset=utf-8
+Host: 127.0.0.1:8080
+Connection: close
+User-Agent: RapidAPI/4.2.0 (Macintosh; OS X/13.4.1) GCDHTTPRequest
+Content-Length: 483
+
+{"idCompany":"04b7697b-b445-42fd-bada-b6a8d2911705","name":"Sakura, \u685c 2.0","picture":"https://images.pexels.com/photos/6192571/pexels-photo-6192571.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1","type":"Japon\u00e9s","country":"Espa\u00f1a","state":"Comunidad de Madrid","city":"Madrid","zipCode":"28665","address":"Calle desenga\u00f1o n\u00ba 21","latitude":50.419882311984954,"longitude":-5.705750367464624,"openingHour":"8:32","closingHour":"23:31","cif":"000-0000-000"}
+
+GET /api/restaurants HTTP/1.1
+CDS-ApiKey: uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQ2MjE2NzguMjk4MTI1LCJpc3MiOiJPbmV0b3VjaGVhc3kuUmVzdGF1cmFudGVPZmVydGFzIiwidHlwZSI6ImFjY2VzVG9rZW4iLCJzdWIiOiIzMkNCQzhDMy1CQjQzLTRGM0MtQkFDRC03QzFGRjE2RTU5NDEiLCJ1c2VyVHlwZSI6ImNvbXBhbnkifQ.srR6m3ZZApoJSnNDKaThN83xh7vG77VjpcaKrObVO6U
+Content-Type: application/json; charset=utf-8
+Host: 127.0.0.1:8080
+Connection: close
+User-Agent: RapidAPI/4.2.0 (Macintosh; OS X/13.4.1) GCDHTTPRequest
+
+
+
+GET /api/restaurants/06dd3bd3-5c4e-46b4-bff5-536ba2e1f17e HTTP/1.1
+CDS-ApiKey: uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQ2MjE2NzguMjk4MTI1LCJpc3MiOiJPbmV0b3VjaGVhc3kuUmVzdGF1cmFudGVPZmVydGFzIiwidHlwZSI6ImFjY2VzVG9rZW4iLCJzdWIiOiIzMkNCQzhDMy1CQjQzLTRGM0MtQkFDRC03QzFGRjE2RTU5NDEiLCJ1c2VyVHlwZSI6ImNvbXBhbnkifQ.srR6m3ZZApoJSnNDKaThN83xh7vG77VjpcaKrObVO6U
+Content-Type: application/json; charset=utf-8
+Host: 127.0.0.1:8080
+Connection: close
+User-Agent: RapidAPI/4.2.0 (Macintosh; OS X/13.4.1) GCDHTTPRequest
+
+
+
+GET /api/restaurantsCompany/04b7697b-b445-42fd-bada-b6a8d2911705 HTTP/1.1
+CDS-ApiKey: uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQ2MjE2NzguMjk4MTI1LCJpc3MiOiJPbmV0b3VjaGVhc3kuUmVzdGF1cmFudGVPZmVydGFzIiwidHlwZSI6ImFjY2VzVG9rZW4iLCJzdWIiOiIzMkNCQzhDMy1CQjQzLTRGM0MtQkFDRC03QzFGRjE2RTU5NDEiLCJ1c2VyVHlwZSI6ImNvbXBhbnkifQ.srR6m3ZZApoJSnNDKaThN83xh7vG77VjpcaKrObVO6U
+Content-Type: application/json; charset=utf-8
+Host: 127.0.0.1:8080
+Connection: close
+User-Agent: RapidAPI/4.2.0 (Macintosh; OS X/13.4.1) GCDHTTPRequest
+
+
+
+GET /api/restaurants-type/Japon%C3%A9s HTTP/1.1
+CDS-ApiKey: uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQ2MjE2NzguMjk4MTI1LCJpc3MiOiJPbmV0b3VjaGVhc3kuUmVzdGF1cmFudGVPZmVydGFzIiwidHlwZSI6ImFjY2VzVG9rZW4iLCJzdWIiOiIzMkNCQzhDMy1CQjQzLTRGM0MtQkFDRC03QzFGRjE2RTU5NDEiLCJ1c2VyVHlwZSI6ImNvbXBhbnkifQ.srR6m3ZZApoJSnNDKaThN83xh7vG77VjpcaKrObVO6U
+Content-Type: application/json; charset=utf-8
+Host: 127.0.0.1:8080
+Connection: close
+User-Agent: RapidAPI/4.2.0 (Macintosh; OS X/13.4.1) GCDHTTPRequest
+
+
+
+GET /api/restaurantWithOffer/3334aef6-cb39-420d-9bca-b82c0753848d HTTP/1.1
+CDS-ApiKey: uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQ2MjE2NzguMjk4MTI1LCJpc3MiOiJPbmV0b3VjaGVhc3kuUmVzdGF1cmFudGVPZmVydGFzIiwidHlwZSI6ImFjY2VzVG9rZW4iLCJzdWIiOiIzMkNCQzhDMy1CQjQzLTRGM0MtQkFDRC03QzFGRjE2RTU5NDEiLCJ1c2VyVHlwZSI6ImNvbXBhbnkifQ.srR6m3ZZApoJSnNDKaThN83xh7vG77VjpcaKrObVO6U
+Content-Type: application/json; charset=utf-8
+Host: 127.0.0.1:8080
+Connection: close
+User-Agent: RapidAPI/4.2.0 (Macintosh; OS X/13.4.1) GCDHTTPRequest
+
+
+
+GET /api/restaurantsWithOffer HTTP/1.1
+CDS-ApiKey: uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQ2MjE2NzguMjk4MTI1LCJpc3MiOiJPbmV0b3VjaGVhc3kuUmVzdGF1cmFudGVPZmVydGFzIiwidHlwZSI6ImFjY2VzVG9rZW4iLCJzdWIiOiIzMkNCQzhDMy1CQjQzLTRGM0MtQkFDRC03QzFGRjE2RTU5NDEiLCJ1c2VyVHlwZSI6ImNvbXBhbnkifQ.srR6m3ZZApoJSnNDKaThN83xh7vG77VjpcaKrObVO6U
+Content-Type: application/json; charset=utf-8
+Host: 127.0.0.1:8080
+Connection: close
+User-Agent: RapidAPI/4.2.0 (Macintosh; OS X/13.4.1) GCDHTTPRequest
+
+
+
+GET /api/offers/81C75186-8F72-4470-A866-275B120AD6B6 HTTP/1.1
+CDS-ApiKey: uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQ2MjE2NzguMjk4MTI1LCJpc3MiOiJPbmV0b3VjaGVhc3kuUmVzdGF1cmFudGVPZmVydGFzIiwidHlwZSI6ImFjY2VzVG9rZW4iLCJzdWIiOiIzMkNCQzhDMy1CQjQzLTRGM0MtQkFDRC03QzFGRjE2RTU5NDEiLCJ1c2VyVHlwZSI6ImNvbXBhbnkifQ.srR6m3ZZApoJSnNDKaThN83xh7vG77VjpcaKrObVO6U
+Content-Type: application/json; charset=utf-8
+Host: 127.0.0.1:8080
+Connection: close
+User-Agent: RapidAPI/4.2.0 (Macintosh; OS X/13.4.1) GCDHTTPRequest
+
+
+
+GET /api/offers HTTP/1.1
+CDS-ApiKey: uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQ2MjE2NzguMjk4MTI1LCJpc3MiOiJPbmV0b3VjaGVhc3kuUmVzdGF1cmFudGVPZmVydGFzIiwidHlwZSI6ImFjY2VzVG9rZW4iLCJzdWIiOiIzMkNCQzhDMy1CQjQzLTRGM0MtQkFDRC03QzFGRjE2RTU5NDEiLCJ1c2VyVHlwZSI6ImNvbXBhbnkifQ.srR6m3ZZApoJSnNDKaThN83xh7vG77VjpcaKrObVO6U
+Content-Type: application/json; charset=utf-8
+Host: 127.0.0.1:8080
+Connection: close
+User-Agent: RapidAPI/4.2.0 (Macintosh; OS X/13.4.1) GCDHTTPRequest
+
+
+

@@ -1,0 +1,777 @@
+{
+  "info": {
+    "name": "RestauranteOfertasEndPoints.paw",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "RestauranteOfertas",
+      "item": [
+        {
+          "name": "Version",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://127.0.0.1:8080/api/version?current=1.1.0",
+              "query": [
+                {
+                  "key": "current",
+                  "value": "1.1.0",
+                  "disabled": false,
+                  "description": null
+                }
+              ],
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "version"
+              ]
+            },
+            "description": "",
+            "header": [
+              {
+                "key": "CDS-ApiKey",
+                "value": "uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5",
+                "disabled": false,
+                "description": null
+              }
+            ],
+            "body": null,
+            "auth": null
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "followOriginalHttpMethod": false,
+            "followAuthorizationHeader": false
+          },
+          "response": []
+        },
+        {
+          "name": "Sign Up",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://127.0.0.1:8080/api/auth/signUp",
+              "query": null,
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "auth",
+                "signUp"
+              ]
+            },
+            "description": "",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "CDS-ApiKey",
+                "value": "uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5",
+                "disabled": false,
+                "description": null
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false,
+              "raw": "{\"name\":\"Goku\",\"email\":\"gokuSL@gmail.com\",\"password\":\"123456\",\"type\":\"company\"}"
+            },
+            "auth": null
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "followOriginalHttpMethod": false,
+            "followAuthorizationHeader": false
+          },
+          "response": []
+        },
+        {
+          "name": "Sign In",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://127.0.0.1:8080/api/auth/signIn",
+              "query": null,
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "auth",
+                "signIn"
+              ]
+            },
+            "description": "",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "CDS-ApiKey",
+                "value": "uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5",
+                "disabled": false,
+                "description": null
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false,
+              "raw": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "gokuSL@gmail.com",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "123456",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "followOriginalHttpMethod": false,
+            "followAuthorizationHeader": false
+          },
+          "response": []
+        },
+        {
+          "name": "RefreshTokens",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://127.0.0.1:8080/api/auth/refresh",
+              "query": null,
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "auth",
+                "refresh"
+              ]
+            },
+            "description": "",
+            "header": [
+              {
+                "key": "CDS-ApiKey",
+                "value": "uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTUyMjQ2NzguMjk4MTI1LCJpc3MiOiJPbmV0b3VjaGVhc3kuUmVzdGF1cmFudGVPZmVydGFzIiwidHlwZSI6InJlZnJlc2hUb2tlbiIsInN1YiI6IjMyQ0JDOEMzLUJCNDMtNEYzQy1CQUNELTdDMUZGMTZFNTk0MSIsInVzZXJUeXBlIjoiY29tcGFueSJ9.Tp6g83yjPm8VaCFJCAZU_ApVVpA4-G_YrLTP9H6aRFM",
+                "disabled": false,
+                "description": null
+              }
+            ],
+            "body": null,
+            "auth": null
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "followOriginalHttpMethod": false,
+            "followAuthorizationHeader": false
+          },
+          "response": []
+        },
+        {
+          "name": "Create Restaurant",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://127.0.0.1:8080/api/addRestaurant",
+              "query": null,
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "addRestaurant"
+              ]
+            },
+            "description": "",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "CDS-ApiKey",
+                "value": "uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQ2MjE2NzguMjk4MTI1LCJpc3MiOiJPbmV0b3VjaGVhc3kuUmVzdGF1cmFudGVPZmVydGFzIiwidHlwZSI6ImFjY2VzVG9rZW4iLCJzdWIiOiIzMkNCQzhDMy1CQjQzLTRGM0MtQkFDRC03QzFGRjE2RTU5NDEiLCJ1c2VyVHlwZSI6ImNvbXBhbnkifQ.srR6m3ZZApoJSnNDKaThN83xh7vG77VjpcaKrObVO6U",
+                "disabled": false,
+                "description": null
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false,
+              "raw": "{\"idCompany\":\"04b7697b-b445-42fd-bada-b6a8d2911705\",\"name\":\"Goku restaurant\",\"picture\":\"https://images.pexels.com/photos/6192571/pexels-photo-6192571.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1\",\"type\":\"Japon\\u00e9s\",\"country\":\"Espa\\u00f1a\",\"state\":\"Comunidad de Madrid\",\"city\":\"Madrid\",\"zipCode\":\"28665\",\"address\":\"Calle desenga\\u00f1o n\\u00ba 21\",\"latitude\":50.419882311984954,\"longitude\":-5.705750367464624,\"openingHour\":\"8:32\",\"closingHour\":\"23:31\",\"cif\":\"000-0000-000\"}"
+            },
+            "auth": null
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "followOriginalHttpMethod": false,
+            "followAuthorizationHeader": false
+          },
+          "response": []
+        },
+        {
+          "name": "Update Restaurant",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "http://127.0.0.1:8080/api/restaurants/06dd3bd3-5c4e-46b4-bff5-536ba2e1f17e",
+              "query": null,
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "restaurants",
+                "06dd3bd3-5c4e-46b4-bff5-536ba2e1f17e"
+              ]
+            },
+            "description": "",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "CDS-ApiKey",
+                "value": "uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQ2MjE2NzguMjk4MTI1LCJpc3MiOiJPbmV0b3VjaGVhc3kuUmVzdGF1cmFudGVPZmVydGFzIiwidHlwZSI6ImFjY2VzVG9rZW4iLCJzdWIiOiIzMkNCQzhDMy1CQjQzLTRGM0MtQkFDRC03QzFGRjE2RTU5NDEiLCJ1c2VyVHlwZSI6ImNvbXBhbnkifQ.srR6m3ZZApoJSnNDKaThN83xh7vG77VjpcaKrObVO6U",
+                "disabled": false,
+                "description": null
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false,
+              "raw": "{\"idCompany\":\"04b7697b-b445-42fd-bada-b6a8d2911705\",\"name\":\"Sakura, \\u685c 2.0\",\"picture\":\"https://images.pexels.com/photos/6192571/pexels-photo-6192571.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1\",\"type\":\"Japon\\u00e9s\",\"country\":\"Espa\\u00f1a\",\"state\":\"Comunidad de Madrid\",\"city\":\"Madrid\",\"zipCode\":\"28665\",\"address\":\"Calle desenga\\u00f1o n\\u00ba 21\",\"latitude\":50.419882311984954,\"longitude\":-5.705750367464624,\"openingHour\":\"8:32\",\"closingHour\":\"23:31\",\"cif\":\"000-0000-000\"}"
+            },
+            "auth": null
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "followOriginalHttpMethod": false,
+            "followAuthorizationHeader": false
+          },
+          "response": []
+        },
+        {
+          "name": "All Restaurants",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://127.0.0.1:8080/api/restaurants",
+              "query": null,
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "restaurants"
+              ]
+            },
+            "description": "",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "CDS-ApiKey",
+                "value": "uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQ2MjE2NzguMjk4MTI1LCJpc3MiOiJPbmV0b3VjaGVhc3kuUmVzdGF1cmFudGVPZmVydGFzIiwidHlwZSI6ImFjY2VzVG9rZW4iLCJzdWIiOiIzMkNCQzhDMy1CQjQzLTRGM0MtQkFDRC03QzFGRjE2RTU5NDEiLCJ1c2VyVHlwZSI6ImNvbXBhbnkifQ.srR6m3ZZApoJSnNDKaThN83xh7vG77VjpcaKrObVO6U",
+                "disabled": false,
+                "description": null
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false,
+              "raw": "{}"
+            },
+            "auth": null
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "followOriginalHttpMethod": false,
+            "followAuthorizationHeader": false
+          },
+          "response": []
+        },
+        {
+          "name": "getRestaurantByID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://127.0.0.1:8080/api/restaurants/06dd3bd3-5c4e-46b4-bff5-536ba2e1f17e",
+              "query": null,
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "restaurants",
+                "06dd3bd3-5c4e-46b4-bff5-536ba2e1f17e"
+              ]
+            },
+            "description": "",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "CDS-ApiKey",
+                "value": "uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQ2MjE2NzguMjk4MTI1LCJpc3MiOiJPbmV0b3VjaGVhc3kuUmVzdGF1cmFudGVPZmVydGFzIiwidHlwZSI6ImFjY2VzVG9rZW4iLCJzdWIiOiIzMkNCQzhDMy1CQjQzLTRGM0MtQkFDRC03QzFGRjE2RTU5NDEiLCJ1c2VyVHlwZSI6ImNvbXBhbnkifQ.srR6m3ZZApoJSnNDKaThN83xh7vG77VjpcaKrObVO6U",
+                "disabled": false,
+                "description": null
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false,
+              "raw": "{}"
+            },
+            "auth": null
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "followOriginalHttpMethod": false,
+            "followAuthorizationHeader": false
+          },
+          "response": []
+        },
+        {
+          "name": "getRestaurantsByCompany",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://127.0.0.1:8080/api/restaurantsCompany/04b7697b-b445-42fd-bada-b6a8d2911705",
+              "query": null,
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "restaurantsCompany",
+                "04b7697b-b445-42fd-bada-b6a8d2911705"
+              ]
+            },
+            "description": "",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "CDS-ApiKey",
+                "value": "uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQ2MjE2NzguMjk4MTI1LCJpc3MiOiJPbmV0b3VjaGVhc3kuUmVzdGF1cmFudGVPZmVydGFzIiwidHlwZSI6ImFjY2VzVG9rZW4iLCJzdWIiOiIzMkNCQzhDMy1CQjQzLTRGM0MtQkFDRC03QzFGRjE2RTU5NDEiLCJ1c2VyVHlwZSI6ImNvbXBhbnkifQ.srR6m3ZZApoJSnNDKaThN83xh7vG77VjpcaKrObVO6U",
+                "disabled": false,
+                "description": null
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false,
+              "raw": "{}"
+            },
+            "auth": null
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "followOriginalHttpMethod": false,
+            "followAuthorizationHeader": false
+          },
+          "response": []
+        },
+        {
+          "name": "getRestaurantsByType",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://127.0.0.1:8080/api/restaurants-type/Japonés",
+              "query": null,
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "restaurants-type",
+                "Japonés"
+              ]
+            },
+            "description": "",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "CDS-ApiKey",
+                "value": "uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQ2MjE2NzguMjk4MTI1LCJpc3MiOiJPbmV0b3VjaGVhc3kuUmVzdGF1cmFudGVPZmVydGFzIiwidHlwZSI6ImFjY2VzVG9rZW4iLCJzdWIiOiIzMkNCQzhDMy1CQjQzLTRGM0MtQkFDRC03QzFGRjE2RTU5NDEiLCJ1c2VyVHlwZSI6ImNvbXBhbnkifQ.srR6m3ZZApoJSnNDKaThN83xh7vG77VjpcaKrObVO6U",
+                "disabled": false,
+                "description": null
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false,
+              "raw": "{}"
+            },
+            "auth": null
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "followOriginalHttpMethod": false,
+            "followAuthorizationHeader": false
+          },
+          "response": []
+        },
+        {
+          "name": "getRestaurantWithOffers",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://127.0.0.1:8080/api/restaurantWithOffer/3334aef6-cb39-420d-9bca-b82c0753848d",
+              "query": null,
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "restaurantWithOffer",
+                "3334aef6-cb39-420d-9bca-b82c0753848d"
+              ]
+            },
+            "description": "",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "CDS-ApiKey",
+                "value": "uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQ2MjE2NzguMjk4MTI1LCJpc3MiOiJPbmV0b3VjaGVhc3kuUmVzdGF1cmFudGVPZmVydGFzIiwidHlwZSI6ImFjY2VzVG9rZW4iLCJzdWIiOiIzMkNCQzhDMy1CQjQzLTRGM0MtQkFDRC03QzFGRjE2RTU5NDEiLCJ1c2VyVHlwZSI6ImNvbXBhbnkifQ.srR6m3ZZApoJSnNDKaThN83xh7vG77VjpcaKrObVO6U",
+                "disabled": false,
+                "description": null
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false,
+              "raw": "{}"
+            },
+            "auth": null
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "followOriginalHttpMethod": false,
+            "followAuthorizationHeader": false
+          },
+          "response": []
+        },
+        {
+          "name": "getRestaurantsWithOffers",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://127.0.0.1:8080/api/restaurantsWithOffer",
+              "query": null,
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "restaurantsWithOffer"
+              ]
+            },
+            "description": "",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "CDS-ApiKey",
+                "value": "uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQ2MjE2NzguMjk4MTI1LCJpc3MiOiJPbmV0b3VjaGVhc3kuUmVzdGF1cmFudGVPZmVydGFzIiwidHlwZSI6ImFjY2VzVG9rZW4iLCJzdWIiOiIzMkNCQzhDMy1CQjQzLTRGM0MtQkFDRC03QzFGRjE2RTU5NDEiLCJ1c2VyVHlwZSI6ImNvbXBhbnkifQ.srR6m3ZZApoJSnNDKaThN83xh7vG77VjpcaKrObVO6U",
+                "disabled": false,
+                "description": null
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false,
+              "raw": "{}"
+            },
+            "auth": null
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "followOriginalHttpMethod": false,
+            "followAuthorizationHeader": false
+          },
+          "response": []
+        },
+        {
+          "name": "getOfferById",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://127.0.0.1:8080/api/offers/81C75186-8F72-4470-A866-275B120AD6B6",
+              "query": null,
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "offers",
+                "81C75186-8F72-4470-A866-275B120AD6B6"
+              ]
+            },
+            "description": "",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "CDS-ApiKey",
+                "value": "uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQ2MjE2NzguMjk4MTI1LCJpc3MiOiJPbmV0b3VjaGVhc3kuUmVzdGF1cmFudGVPZmVydGFzIiwidHlwZSI6ImFjY2VzVG9rZW4iLCJzdWIiOiIzMkNCQzhDMy1CQjQzLTRGM0MtQkFDRC03QzFGRjE2RTU5NDEiLCJ1c2VyVHlwZSI6ImNvbXBhbnkifQ.srR6m3ZZApoJSnNDKaThN83xh7vG77VjpcaKrObVO6U",
+                "disabled": false,
+                "description": null
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false,
+              "raw": "{}"
+            },
+            "auth": null
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "followOriginalHttpMethod": false,
+            "followAuthorizationHeader": false
+          },
+          "response": []
+        },
+        {
+          "name": "getOffers",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://127.0.0.1:8080/api/offers",
+              "query": null,
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "offers"
+              ]
+            },
+            "description": "",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "CDS-ApiKey",
+                "value": "uciEfKBulHfMpavLobwGaIE0XwZBaCqBQuSRQu4YaZiNWGyON1XNlG7djMJ9Ogt5",
+                "disabled": false,
+                "description": null
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQ2MjE2NzguMjk4MTI1LCJpc3MiOiJPbmV0b3VjaGVhc3kuUmVzdGF1cmFudGVPZmVydGFzIiwidHlwZSI6ImFjY2VzVG9rZW4iLCJzdWIiOiIzMkNCQzhDMy1CQjQzLTRGM0MtQkFDRC03QzFGRjE2RTU5NDEiLCJ1c2VyVHlwZSI6ImNvbXBhbnkifQ.srR6m3ZZApoJSnNDKaThN83xh7vG77VjpcaKrObVO6U",
+                "disabled": false,
+                "description": null
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false,
+              "raw": "{}"
+            },
+            "auth": null
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "followOriginalHttpMethod": false,
+            "followAuthorizationHeader": false
+          },
+          "response": []
+        }
+      ],
+      "protocolProfileBehavior": null,
+      "response": []
+    }
+  ]
+}
